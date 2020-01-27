@@ -1,0 +1,102 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+    <meta charset="UTF-8">
+    <script src="js/Jquery/jquery-3.4.1.min.js"></script>
+    <script src="js/bootstrap/bootstrap.min.js"></script>
+    <!--<script src="js/createPDS.js"></script>-->
+    <script>
+        var References = new Array();
+        var PosteS = new Array();
+        var RefParPostes = new Array(postes,References);
+        var i = 0;
+        var j = 0;
+        var n
+        function addReference() {
+            NumRef = NumRef + 1;
+            j = j + 1;
+            $("#fieldset1").append("<p><label for='ref"+NumRef+"'>Référence n°"+NumRef+" :  </label><input type='text' name='ref"+NumRef+"' placeholder='numéro référence'  id='ref"+NumRef+"' required /></p>");
+            postes[i][j] = NumRef;
+        }
+        
+        function addElement() {
+            // crée un nouvel élément div
+            var newDiv = document.createElement("div");
+            // et lui donne un peu de contenu
+            var newContent = document.createTextNode('Hi there and greetings!');
+            // ajoute le nœud texte au nouveau div créé
+            newDiv.appendChild(newContent);
+
+            // ajoute le nouvel élément créé et son contenu dans le DOM
+            var currentDiv = document.getElementById('div1');
+            document.body.insertBefore(newDiv, currentDiv);
+        }
+    </script>
+    <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+    <link rel="stylesheet" href="css/custom.css">
+    <title>Création PDS</title>
+</head>
+
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm bg-dark">
+            <img width="7.5%" height="7.5%" src="img/home.png">
+            <a class="navbar-brand font-weight-bold" style="color : white !important"
+                href="http://localhost/Projet_MEF/createPDS.html">Ferrage</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse menu-texte" id="navbarSupportedContent">
+                <ul class="navbar-nav mr-auto">
+                    <li class="nav-item active">
+                        <a class="nav-link" href="http://localhost/Projet_MEF/createPDS.html">Création de PDS <span
+                                class="sr-only"></span></a>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <main>
+        <article class="jumbotron">
+            <!-- Zone Principale -->
+            <p>
+                <input type="reset" value="Ajouter un poste" onclick="" />
+                <input type="submit" value="Ajouter une référence" onclick="addReference()" />
+            </p>
+
+            <hr />
+            <h2>Création des nouveaux PDS</h2>
+            <form id="form1" method="post" action="fichier.php">
+                <!-- Attribut method : POST ou GET
+                 Attribut action : URL de traitement du formulaire (en PHP) -->
+                <fieldset id="fieldset1">
+                <p>
+                    <label for="poste1">Poste : </label><input type="text" name="poste1" placeholder="numéro du poste"
+                        id="poste1" required />
+                </p>
+                <p>
+                    <label for="ref1">Référence n°1 : </label><input type="text" name="ref1"
+                        placeholder="numéro référence" id="ref1" required />
+                </p>
+
+                </fieldset> <!-- fin de mon 1er fieldset -->
+
+                <p>
+                    <input type="submit" name="envoyer" value="Envoyer le message !" />
+                    <input type="reset" value="Remis à zéro" />
+                </p>
+
+            </form>
+        </article>
+    </main>
+    <footer>
+        <div class='footer text-white bg-dark text-center p-3'>© 2019-20
+            <b><a class='text-white text-capitalize' href='https://www.groupe-psa.com/fr/'> Equipe Digitale / Groupe
+                    PSA</a></b>
+        </div>
+    </footer>
+</body>
+
+</html>

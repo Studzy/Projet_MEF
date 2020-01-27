@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<script src="js/Jquery/jquery-3.4.1.min.js"></script>
+	<script src="js/bootstrap/bootstrap.min.js"></script>
+	<script>
+		var logs = [{}];
+		$( document ).ready(function() {
+			$.ajax({
+						type: 'POST',
+						url: 'read.php',
+						data:  "read=y",
+						success: function(data) {
+							logs = data; 
+							remplirLogs(logs);
+						}
+					});
+		});
+
+		function remplirLogs(log)
+		{
+			let tableau = $('#tab_logs > tbody');
+			tableau.html('');
+			log.map(log =>
+			{
+				tableau.append('<tr>');
+				for (var i = 0, l = log.length; i < l; i++) 
+				{
+						if(log[i])
+							tableau.find('tr').last().append('<td>'+ log[i] +'</td>');
+						else
+							tableau.find('tr').last().append('<td> - </td>');
+				}
+			});
+		}
+	</script>
+	<link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+	<link rel="stylesheet" href="css/custom.css">
+	<title>MEF Ferrage</title>
+</head>
+
+<body>
+	<header>
+		<nav class="navbar navbar-expand-sm bg-dark">
+			<img width="7.5%" height="7.5%" src="img/home.png">
+			<a class="navbar-brand font-weight-bold" style="color : white !important" href="http://localhost/Projet_MEF/index.html">Ferrage</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse menu-texte" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active">
+						<a class="nav-link" href="http://localhost/Projet_MEF/index.html">Accueil <span class="sr-only"></span></a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link" href="http://localhost/Projet_MEF/logs.html">Journaux<span class="sr-only">(current)</span></a>
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+	<main>
+		<div class="jumbotron">
+			<h1 class="text-center display-4">MEF Ferrage contrôle conformité</h1><br />
+			<h3 class="text-center display-5">Historique</h3><br />
+			<div class="jumbotron">
+					<div class="row col-md-10 mx-auto p-4">
+						<table id="tab_logs" 
+							class="table table-responsive-md table-striped table-bordered table-active text-center">
+							<thead>
+								<tr>
+									<th>Date/heure</th>
+									<th>Identifiant</th>
+									<th>Référence</th>
+									<th>Etat</th>
+								</tr>
+							</thead>
+							<tbody>
+							</tbody>
+						</table>
+					</div>
+			</div>
+	</main>
+	<footer>
+		<div class='footer text-white bg-dark text-center p-3'>© 2019-20
+			<b><a class='text-white text-capitalize' href='https://www.groupe-psa.com/fr/'> Equipe Digitale / Groupe
+					PSA</a></b>
+		</div>
+	</footer>
+</body>
+
+</html>

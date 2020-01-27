@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="fr">
+<head>
+	<meta charset="UTF-8">
+	<script src="js/Jquery/jquery-3.4.1.min.js"></script>
+	<script src="js/bootstrap/bootstrap.min.js"></script>
+	<link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+	<link rel="stylesheet" href="css/custom.css">
+	<title>New page</title>
+	
+</head>
+
+<body>
+	<header>
+		<nav class="navbar navbar-expand-sm bg-dark">
+			<img width="7.5%" height="7.5%" src="img/home.png">
+			<a class="navbar-brand font-weight-bold" style="color : white !important" href="/">Ferrage</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse menu-texte" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active">
+						<a class="nav-link" href="/">Accueil <span class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link" href="logs.html">Journaux<span class="sr-only"></span></a>
+					</li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right">
+						<li class="nav-item">
+							<span id="poste" class="sr-only"></span>
+						</li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+	<main>
+		<h3 class="text-center display-6">MEF Ferrage contrôle conformité</h3><br />
+		<div id="success" class="alert alert-success" role="alert" style="display: none;">
+				<h4 class="alert-heading">Succès</h4>
+				<p class="mb-0">Le contrôle a bien été enregistré.</p>
+		</div>
+		<div id="echec" class="alert alert-danger" role="alert" style="display: none;">
+				<h4 class="alert-heading">Echec</h4>
+				<p class="mb-0">Erreur lors de l'écriture.</p>
+		</div>
+		<div class="modal fade" id="choixcontrole" role="dialog">
+				<div class="modal-dialog">
+				  <div class="modal-content">
+					<div class="modal-header">
+					  <h4 class="modal-title">Contrôle conformité</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row col-sm-12 my-auto">
+							<div class="col-sm-6">
+								<button id="ok" type="button" class="btn btn-lg btn-succes" data-dismiss="modal">OK</button>
+							</div>	
+							<div class="col-sm-6">
+								<button id="nok"  type="button" class="btn btn-lg btn-danger" data-dismiss="modal">NOK</button>
+							</div>	
+					</div>
+					</div>
+					<div class="modal-footer">
+					  <button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+					</div>
+				  </div>
+				  
+				</div>
+		</div>
+	</main>
+	<footer>
+		<div class='footer text-white bg-dark text-center p-3'>© 2018-2019
+			<b><a class='text-white text-capitalize' href='https://www.groupe-psa.com/fr/'> Equipe Digitale / Groupe
+					PSA</a></b>
+		</div>
+	</footer>
+</body>
+
+</html>
