@@ -9,7 +9,8 @@
 	<link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
 	<link rel="stylesheet" href="css/custom.css">
 	<title>MEF Ferrage</title>
-	
+
+
 </head>
 
 <body>
@@ -33,11 +34,10 @@
 								class="sr-only"></span></a>
 					</li>
 				</ul>
-				<ul class="nav navbar-nav navbar-right">
-					<li class="nav-item" data-toggle='modal' data-target='#choixuser'>
-						<a class="nav-link" >Se connecter<span
-							class="sr-only"></span></a>
-							<!--<span id="poste" class="sr-only"></span>-->
+				<ul class="nav navbar-nav navbar-right" id="titreConnection">
+					<li class='nav-item' data-toggle='modal' data-target='#choixuser'>
+						<a class='nav-link'>Se connecter<span class='sr-only'></span></a>
+						<!--<span id="poste" class="sr-only"></span>-->
 					</li>
 				</ul>
 			</div>
@@ -62,16 +62,16 @@
 			<div class="modal-dialog" style="max-width: 90%;">
 				<div class="modal-content">
 					<div class="modal-header">
-						<h2 class="modal-title">Se connecter</h2>
+						<h2 class="modal-title">Nom d'utilisateur</h2>
 					</div>
-					<div class="modal-body">
-						<input type="text" value="" id="" style="font-size: 450%;">
+					<div class="modal-body" id="connection">
+						<input type="text" value="" id="nom_user" style="font-size: 450%;">
 					</div>
 					<div class="modal-footer">
-						<button type="button" onclick="" class="btn btn-default"
+						<button type="button" onclick="connectionUtilisateur()" class="btn btn-default"
 							data-dismiss="modal" style="font-size: 500%;">Valider</button>
-						<button type="button" onclick="" class="btn btn-default"
-							data-dismiss="modal" style="font-size: 500%;">Annuler</button>
+						<button type="button" onclick="" class="btn btn-default" data-dismiss="modal"
+							style="font-size: 500%;">Annuler</button>
 					</div>
 				</div>
 			</div>
@@ -129,10 +129,10 @@
 						</div>
 					</div>
 					<div class="modal-footer">
-						<button type="button" onclick="procedureEnvvoi()" class="btn btn-default"
-							data-dismiss="modal" style="font-size: 500%;">Valider</button>
-						<button type="button" onclick="resetButtonColor()" class="btn btn-default"
-							data-dismiss="modal" style="font-size: 500%;">Annuler</button>
+						<button type="button" onclick="procedureEnvvoi()" class="btn btn-default" data-dismiss="modal"
+							style="font-size: 500%;">Valider</button>
+						<button type="button" onclick="resetButtonColor()" class="btn btn-default" data-dismiss="modal"
+							style="font-size: 500%;">Annuler</button>
 					</div>
 				</div>
 
@@ -174,5 +174,49 @@
 	</footer>
 
 </body>
+<script>
+
+
+	//Definir l'utilisateur actuel
+	function setLocalUser() {
+		let nomTempo = document.getElementById("nom_user");
+		let userName = nomTempo.value;
+		sessionStorage.setItem('userLocal', userName);
+	}
+
+	//Fonction qui modifie l'entete droite de connection avec l'utilisateur connecter
+	function userConnecter() {
+		var userConnecter = sessionStorage.getItem('userLocal');
+		$('#titreConnection').html('');
+		$('#titreConnection').append("<li class='nav-item' ><a class='nav-link'>" + userConnecter + "<span class='sr-only'></span></a></li>");
+		$('#titreConnection').append("<li class='nav-item' ><a class='nav-link' onclick='userDeconnecter()'>Se deconnecter<span class='sr-only'></span></a></li>");
+		//location.reload();
+	}
+
+	//fonction qui modifie l'entete droit de connection pour le mode deconnecter
+	function userDeconnecter() {
+		$('#titreConnection').html('');
+		$('#titreConnection').append("<li class='nav-item' data-toggle='modal' data-target='#choixuser'><a class='nav-link'>Se connecter<span class='sr-only'></span></a></li>");
+		sessionStorage.clear();
+	}
+
+	//Procedure de connection de l'utilisateur
+	async function connectionUtilisateur() {
+		setLocalUser();
+		userConnecter();
+	}
+
+	if (!sessionStorage.getItem('userLocal')) {
+		//populateStorage();
+		//userDeconnecter();
+		//alert('Deconnecter !')
+	} else {
+		//setStyles();
+		//connectionUtilisateur();
+		userConnecter();
+		//alert('Connecter !' + sessionStorage.getItem('userLocal'));
+	}
+
+</script>
 
 </html>

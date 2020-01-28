@@ -14,6 +14,7 @@ let identifiant = "1";
 let dateTempo = "";
 let dateEnCours = "";
 
+//Fonction qui recupère les postes grâce a une requete php et qui avec la fonction "remplirTableau()" affiche les poste sur la page
 async function lirePostes() {
 	try {
 		//let req = await fetch(Chemin + '/postes.php');
@@ -30,6 +31,7 @@ async function lirePostes() {
 	}
 }
 
+//Utilise une requete php pour recuperer les refrences en BDD et avec la fonction "remplirRefs()" affiche les references sur la page
 async function lireRefs() {
 	try {
 		let req = await fetch('php/references.php?id=' + posteEnCours);
@@ -44,6 +46,7 @@ async function lireRefs() {
 	}
 }
 
+//Recupère grâce a une requete php les 10 derniers controles effectuer et avec la fonction "remplirDerniersCtrl()" les affiches sur la page
 async function recupererDerniersCtrl() {
 	try {
 		let req = await fetch('php/lastctrl.php?id=' + posteEnCours);
@@ -58,6 +61,7 @@ async function recupererDerniersCtrl() {
 	}
 }
 
+//Fonction qui permet d'afficher les references sur la page
 function choixRef(r, i) {
 
 	$.each(references, function (i, obj) {
@@ -79,6 +83,7 @@ function choixRef(r, i) {
 
 }
 
+//Fonction qui va afficher les derniers controles sur la page
 function remplirDerniersCtrl() {
 	let tableau = $('#tab_ctrl > tbody');
 	tableau.html('');
@@ -104,7 +109,7 @@ function remplirDerniersCtrl() {
 }
 
 
-
+//Fonction qui va afficher dynamiquement les references sur la page à la suite de l'ID "listerefs"
 function remplirRefs() {
 	$("#listerefs").html('');
 	$.each(references, function (i, obj) {
@@ -115,6 +120,7 @@ function remplirRefs() {
 	recupererDerniersCtrl();
 }
 
+//Fonction qui après la selection du poste va afficher les references
 function choixPoste(p) {
 	posteEnCours = postes[p].id
 	$("#content").html('');
@@ -128,6 +134,7 @@ function choixPoste(p) {
 	lireRefs();
 }
 
+//Fonction qui affiche les differents postes sous forme de tableau 
 function remplirTableau() {
 	$("#listepostes").html('');
 	$.each(postes, function (i, obj) {
@@ -159,6 +166,7 @@ function remplirTableau() {
 	});
 }
 
+//Fonction qui recupere le nom de l'operateur de l'élément avce l'ID "nom_operateur"
 function recupererNomOperateur() {
 	var nom_operateur = document.getElementById("nom_operateur");
 	var result = nom_operateur.value;
@@ -175,6 +183,7 @@ function afficheResult() {
 	alert(recupererNomOperateur());
 }
 
+//Fonction qui change la couleur des boutons dans le formulaire modal en fonction du bouton selectionner
 function changeColor(NomBouton) {
 	//if (document.frm.button1.style.background = 'blue') { document.frm.button1.style.background = 'red'; }
 	if (NomBouton == "BtnQualityOK") {
@@ -222,6 +231,7 @@ function changeColor(NomBouton) {
 	//BtnQualityOK.style.backgroundColor = 'blue'
 }
 
+//Redefinis la couleur des boutons du formulaire modal
 function resetButtonColor() {
 	BtnQualityOK.style.backgroundColor = '#e9ecef';
 	BtnQualityNOK.style.backgroundColor = '#e9ecef';
@@ -236,6 +246,7 @@ function resetButtonColor() {
 	BtnDateOK.style.color = 'black';
 	BtnDateNOK.style.color = 'black';
 }
+
 
 function testEnvoiPhoto() {
 	$.ajax({
@@ -253,6 +264,7 @@ function testEnvoiPhoto() {
 	});
 }
 
+// Procedure qui envoie les nouvelles infos a la BDD 
 function procedureEnvvoi() {
 	NomOperateur = recupererNomOperateur();
 	if (NomOperateur != "") {
@@ -313,6 +325,7 @@ function connectionUser() {
 }
 
 $(document).ready(function () {
+	
 	$('#choixcontrole').on('hidden.bs.modal', function () {
 		$.each(references, function (i, obj) {
 			console.log(obj.id + ' ' + obj.reference);
@@ -359,6 +372,7 @@ $(document).ready(function () {
 		recupererDerniersCtrl();
 	});
 	lirePostes();
+	
 
 });
 
@@ -384,9 +398,9 @@ function storageAvailable(type) {
 			// acknowledge QuotaExceededError only if there's something already stored
 			storage.length !== 0;
 	}
-	
+
 }
-function testStorage(){
+function testStorage() {
 	if (storageAvailable('localStorage')) {
 		// Nous pouvons utiliser localStorage
 		alert("Nous pouvons utiliser localStorage");
@@ -397,24 +411,65 @@ function testStorage(){
 	}
 }
 
+//Tester si le stockage est rempli
+if (!sessionStorage.getItem('userLocal')) {
+	//populateStorage();
+	userDeconnecter();
+} else {
+	//setStyles();
+	userConnecter();
+}
+
+//Obtenir les valeurs du stockage
+function setStyles() {
+	var currentColor = localStorage.getItem('bgcolor');
+	var currentFont = localStorage.getItem('font');
+	var currentImage = localStorage.getItem('image');
+
+	document.getElementById('bgcolor').value = currentColor;
+	document.getElementById('font').value = currentFont;
+	document.getElementById('image').value = currentImage;
+
+	htmlElem.style.backgroundColor = '#' + currentColor;
+	pElem.style.fontFamily = currentFont;
+	imgElem.setAttribute('src', currentImage);
+}
+
+//Enregistrer une valeur dans le stockage
 function populateStorage() {
 	localStorage.setItem('bgcolor', document.getElementById('bgcolor').value);
 	localStorage.setItem('font', document.getElementById('font').value);
 	localStorage.setItem('image', document.getElementById('image').value);
-  
-	setStyles();
-  }
 
-  function setStyles() {
-	var currentColor = localStorage.getItem('bgcolor');
-	var currentFont = localStorage.getItem('font');
-	var currentImage = localStorage.getItem('image');
-  
-	document.getElementById('bgcolor').value = currentColor;
-	document.getElementById('font').value = currentFont;
-	document.getElementById('image').value = currentImage;
-  
-	htmlElem.style.backgroundColor = '#' + currentColor;
-	pElem.style.fontFamily = currentFont;
-	imgElem.setAttribute('src', currentImage);
-  }
+	setStyles();
+}
+
+//Definir valeur du web storage
+//localStorage.setItem('colorSetting', '#a4509b');
+
+//Definir l'utilisateur actuel
+function setLocalUser() {
+	let nomTempo = document.getElementById("nom_user");
+	let userName = nomTempo.value;
+	sessionStorage.setItem('userLocal', userName);
+}
+
+//Fonction qui modifie l'entete droite de connection avec l'utilisateur connecter
+function userConnecter() {
+	var userConnecter = sessionStorage.getItem('userLocal');
+	$('#titreConnection').html('');
+	$('#titreConnection').append("<li class='nav-item' ><a class='nav-link'>" + userConnecter + "<span class='sr-only'></span></a></li>");
+	$('#titreConnection').append("<li class='nav-item' ><a class='nav-link' onclick='userDeconnecter()'>Se deconnecter<span class='sr-only'></span></a></li>");
+}
+
+//fonction qui modifie l'entete droit de connection pour le mode deconnecter
+function userDeconnecter() {
+	$('#titreConnection').html('');
+	$('#titreConnection').append("<li class='nav-item' data-toggle='modal' data-target='#choixuser'><a class='nav-link'>Se connecter<span class='sr-only'></span></a></li>");
+}
+
+//Procedure de connection de l'utilisateur
+function connectionUtilisateur() {
+	setLocalUser();
+	userConnecter();
+}
