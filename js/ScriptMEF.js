@@ -140,7 +140,7 @@ function remplirTableau() {
 	$.each(postes, function (i, obj) {
 		console.log(obj.id + ' ' + obj.poste);
 		if (i < 3) {
-			$('#listepostes').append("<li onclick='choixPoste(" + i + ")' class='list-group-item'><figure class='figure'><img class='figure-img img-fluid rounded'  width='25%' height='100%' src='img/pc.svg'><figcaption class='figure-caption'>" + obj.poste + "</figcaption></figure></li>");
+			$('#listepostes').append("<li onclick='choixPoste(" + i + ")' class='list-group-item'><figure class='figure'  style='font-size: 150%;'><img class='figure-img img-fluid rounded'  width='25%' height='100%' src='img/pc.svg'><figcaption class='figure-caption'>" + obj.poste + "</figcaption></figure></li>");
 		}
 		if (i > 2 && i < 6) {
 			$('#content').append("<ul id='listepostes2' class='list-group list-group-horizontal justify-content-center'></ul>");
@@ -310,7 +310,7 @@ function procedureEnvvoi() {
 		}
 	}
 	else {
-		alert("Veuillez entrez un nom");
+		alert("Veuillez vous connecter");
 	}
 	VerifDate = "";
 	VerifQuality = "";

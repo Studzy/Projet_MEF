@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="fr">
+
+<head>
+	<meta charset="UTF-8">
+	<script src="js/Jquery/jquery-3.4.1.min.js"></script>
+	<script src="js/bootstrap/bootstrap.min.js"></script>
+	<script src="js/ScriptMEF.js"></script>
+	<link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
+	<link rel="stylesheet" href="css/custom.css">
+	<title>MEF Ferrage</title>
+
+
+</head>
+
+<body>
+	<header>
+		<nav class="navbar navbar-expand-sm bg-dark">
+			<img width="7.5%" height="7.5%" src="img/home.png">
+			<a class="navbar-brand font-weight-bold" style="color : white !important"
+				href="http://localhost/Projet_MEF/">Ferrage</a>
+			<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+				aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+				<span class="navbar-toggler-icon"></span>
+			</button>
+			<div class="collapse navbar-collapse menu-texte" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto">
+					<li class="nav-item active">
+						<a class="nav-link" href="http://localhost/Projet_MEF/controle.html">Contrôle <span
+								class="sr-only">(current)</span></a>
+					</li>
+					<li class="nav-item active">
+						<a class="nav-link" href="http://localhost/Projet_MEF/logs2.html">Historique<span
+								class="sr-only"></span></a>
+					</li>
+				</ul>
+				<ul class="nav navbar-nav navbar-right" id="titreConnection">
+					<li class='nav-item'>
+						<a class='nav-link' href="http://localhost/Projet_MEF/index.html" onclick='userDeconnecter()'>Se
+							deconnecter<span class='sr-only'></span></a>
+						<!--<span id="poste" class="sr-only"></span>-->
+					</li>
+				</ul>
+			</div>
+		</nav>
+	</header>
+	<main>
+		<h3 class="text-center display-6">MEF Ferrage contrôle conformité</h3><br />
+		<div id="success" class="alert alert-success" role="alert" style="display: none;">
+			<h4 class="alert-heading">Succès</h4>
+			<p class="mb-0">Le contrôle a bien été enregistré.</p>
+		</div>
+		<div id="echec" class="alert alert-danger" role="alert" style="display: none;">
+			<h4 class="alert-heading">Echec</h4>
+			<p class="mb-0">Erreur lors de l'écriture.</p>
+		</div>
+		<span id="contenu">
+			<div id="content" class="row col-sm-12 jumbotron">
+				<h3 class="text-center display-5">Choissisez le poste</h3><br />
+				<ul id="listepostes" class="list-group list-group-horizontal justify-content-center">
+				</ul>
+			</div>
+		</span>
+
+		<div class="modal fade" id="choixuser" role="dialog">
+			<div class="modal-dialog" style="max-width: 90%;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h2 class="modal-title">Nom d'utilisateur</h2>
+					</div>
+					<div class="modal-body" id="connection">
+						<input type="text" value="" id="nom_user" style="font-size: 450%;">
+					</div>
+					<div class="modal-footer">
+						<button type="button" onclick="connectionUtilisateur()" class="btn btn-default"
+							data-dismiss="modal" style="font-size: 500%;">Valider</button>
+						<button type="button" onclick="" class="btn btn-default" data-dismiss="modal"
+							style="font-size: 500%;">Annuler</button>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="modal fade" id="choixcontrole" role="dialog">
+			<div class="modal-dialog" style="max-width:90%;">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">Contrôle conformité</h4>
+					</div>
+					<div class="modal-body" id="formulaire">
+
+						Nom opérateur :<br>
+						<input type="text" value="" id="nom_operateur" required><br>
+						<br />
+						<p style="font-size: 50px;">Qualité de la pièces : </p>
+						<div class="row col-sm-12 my-auto">
+
+							<div class="col-sm-6">
+								<button name="" id="BtnQualityOK" type="button" onclick="changeColor('BtnQualityOK')"
+									class="btn btn-lg btn-succes" style="font-size: 500%;" data-dismiss="">OK</button>
+							</div>
+							<div class="col-sm-6">
+								<button name="" id="BtnQualityNOK" type="button" onclick="changeColor('BtnQualityNOK')"
+									class="btn btn-lg" style="font-size: 500%;" data-dismiss="">NOK</button>
+							</div>
+
+						</div>
+						<br />
+						<p>Référence : </p>
+
+						<div class="row col-sm-12 my-auto">
+
+							<div class="col-sm-6">
+								<button name="" id="BtnRefOK" type="button" onclick="changeColor('BtnRefOK')"
+									class="btn btn-lg btn-succes" style="font-size: 500%;" data-dismiss="">OK</button>
+							</div>
+							<div class="col-sm-6">
+								<button name="" id="BtnRefNOK" type="button" onclick="changeColor('BtnRefNOK')"
+									class="btn btn-lg" style="font-size: 500%;" data-dismiss="">NOK</button>
+							</div>
+
+						</div>
+						<br />
+						<p>Date : </p>
+						<div class='row col-sm-12 my-auto'>
+							<div class="col-sm-6">
+								<button name="" id="BtnDateOK" type="button" onclick="changeColor('BtnDateOK')"
+									class="btn btn-lg btn-succes" style="font-size: 500%;" data-dismiss="">OK</button>
+							</div>
+							<div class='col-sm-6'>
+								<button name='' id='BtnDateNOK' type="button" onclick="changeColor('BtnDateNOK')"
+									class='btn btn-lg' style="font-size: 500%;" data-dismiss=''>NOK</button>
+							</div>
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" onclick="procedureEnvvoi()" class="btn btn-default" data-dismiss="modal"
+							style="font-size: 500%;">Valider</button>
+						<button type="button" onclick="resetButtonColor()" class="btn btn-default" data-dismiss="modal"
+							style="font-size: 500%;">Annuler</button>
+					</div>
+				</div>
+
+			</div>
+		</div>
+		<!--<div class="modal fade" id="choixcontrole" role="dialog">
+			<div class="modal-dialog">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h4 class="modal-title">Contrôle qualité de la pièce</h4>
+					</div>
+					<div class="modal-body">
+						<div class="row col-sm-12 my-auto">
+
+							<div class="col-sm-6">
+								<button id="ok" type="button" class="btn btn-lg btn-succes"
+									data-dismiss="modal">OK</button>
+							</div>
+							<div class="col-sm-6">
+								<button id="nok" type="button" class="btn btn-lg btn-danger"
+									data-dismiss="modal">NOK</button>
+							</div>
+
+						</div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-default" data-dismiss="modal">Annuler</button>
+					</div>
+				</div>
+
+			</div>
+		</div>-->
+	</main>
+	<footer>
+		<div class='footer text-white bg-dark text-center p-3'>© 2018-2020
+			<b><a class='text-white text-capitalize' href='https://www.groupe-psa.com/fr/'> Equipe Digitale / Groupe
+					PSA</a></b>
+		</div>
+	</footer>
+
+</body>
+<script>
+	//window.location.assign("http://localhost/Projet_MEF/controle.html");
+	if (!sessionStorage.getItem('userLocal')) {
+		//populateStorage();
+		//userDeconnecter();
+		//alert('Deconnecter !')
+		//$('#contenu').html('');
+		//connectionUtilisateur();
+
+	} else {
+		//setStyles();
+		//connectionUtilisateur();
+		$('#nom_operateur').html('');
+		userConnecter();
+		//alert('Connecté ! ' + sessionStorage.getItem('userLocal'));
+	}
+	//fonction qui modifie l'entete droit de connection pour le mode deconnecter
+	function userDeconnecter() {
+		sessionStorage.clear();
+	}
+	//Fonction qui modifie l'entete droite de connection avec l'utilisateur connecter
+	function userConnecter() {
+		var userConnecter = sessionStorage.getItem('userLocal');
+		$('#titreConnection').html('');
+		$('#titreConnection').append("<li class='nav-item' ><a class='nav-link'>" + userConnecter + "<span class='sr-only'></span></a></li>");
+		$('#titreConnection').append("<li class='nav-item' ><a class='nav-link' href='http://localhost/Projet_MEF/index.html' onclick='userDeconnecter()'>Se deconnecter<span class='sr-only'></span></a></li>");
+
+	}
+</script>
+
+
+</html>
