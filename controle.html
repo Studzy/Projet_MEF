@@ -281,8 +281,8 @@
             });
         }
 
-        // Procedure qui envoie les nouvelles infos a la BDD 
-        function procedureEnvvoi() {
+        // Procedure qui envoie les nouvelles infos a la BDD sans la verification de la date 
+        function envoiSansDate() {
             NomOperateur = recupererNomOperateur();
             if (NomOperateur != "") {
                 if (VerifReference != "" && VerifQuality != "") {
@@ -351,6 +351,87 @@
             resetButtonColor();
             //lirePostes();
         }
+
+        // Procedure qui envoie les nouvelles infos a la BDD avec la verification de la date 
+        function envoiAvecDate() {
+            NomOperateur = recupererNomOperateur();
+            if (NomOperateur != "") {
+                if (VerifReference != "" && VerifQuality != "") {
+                    if (VerifReference == "OK" && VerifQuality == "OK" && VerifDate == "OK") {
+                        let res = 1;
+                        NomOperateur = recupererNomOperateur();
+
+                        $.ajax({
+                            type: 'POST',
+                            url: 'php/write.php',
+                            data: {
+                                "userid": identifiant,
+                                "poste": posteEnCours,
+                                "ref": refEnCours,
+                                "res": res,
+                                "resQualite": VerifQuality,
+                                "resReference": VerifReference,
+                                "resDate": VerifDate,
+                                "userName": NomOperateur
+                            },
+                            success: function(data) {
+                                if (data.status = "ok") {
+                                    $("#success").show().delay(2000).fadeOut();
+                                    recupererDerniersCtrl();
+                                } else {
+                                    $("echec").show().delay(2000).fadeOut();
+                                    recupererDerniersCtrl();
+                                }
+                            }
+                        });
+                        recupererDerniersCtrl();
+                    } else {
+                        let res = 0;
+                        $.ajax({
+                            type: 'POST',
+                            url: 'php/write.php',
+                            data: {
+                                "userid": identifiant,
+                                "poste": posteEnCours,
+                                "ref": refEnCours,
+                                "res": res,
+                                "resQualite": VerifQuality,
+                                "resReference": VerifReference,
+                                "resDate": VerifDate,
+                                "userName": NomOperateur
+                            },
+                            success: function(data) {
+                                if (data.status = "ok") {
+                                    $("#success").show().delay(2000).fadeOut();
+                                    recupererDerniersCtrl();
+                                } else {
+                                    $("echec").show().delay(2000).fadeOut();
+                                    recupererDerniersCtrl();
+                                }
+                            }
+                        });
+                        recupererDerniersCtrl();
+                    }
+                }
+            } else {
+                alert("Veuillez vous connecter");
+            }
+            VerifDate = "";
+            VerifQuality = "";
+            VerifReference = "";
+            resetButtonColor();
+            //lirePostes();
+        }
+
+
+        function procedureEnvoi() {
+            if (dateEnCours != "") {
+                envoiAvecDate();
+            } else {
+                envoiSansDate();
+            }
+        }
+
 
         function connectionUser() {
             utilisateurConnecter = recupererNomOperateur();
@@ -426,11 +507,11 @@
     <header>
         <nav class="navbar navbar-expand-sm bg-dark">
             <img width="7.5%" height="7.5%" src="img/home.png">
-            <a class="navbar-brand font-weight-bold" style="color : white !important" href="http://localhost/Projet_MEF/">Ferrage</a>
+            <a class="navbar-brand font-weight-bold" style="color : white !important;" href="http://localhost/Projet_MEF/controle.html">Ferrage</a>
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-            <div class="collapse navbar-collapse menu-texte" id="navbarSupportedContent">
+            <div class="collapse navbar-collapse menu-texte" id="navbarSupportedContent" style="font-size: 175%;">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
                         <a class="nav-link" href="http://localhost/Projet_MEF/controle.html">Contrôle <span
@@ -442,7 +523,7 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right" id="titreConnection">
-                    <li class='nav-item'>
+                    <li class='nav-item' style="border-left: white solid;">
                         <a class='nav-link' href="http://localhost/Projet_MEF/index.html" onclick='userDeconnecter()'>Se
 							deconnecter<span class='sr-only'></span></a>
                         <!--<span id="poste" class="sr-only"></span>-->
@@ -530,7 +611,7 @@
 
                     </div>
                     <div class="modal-footer">
-                        <button type="button" onclick="procedureEnvvoi()" class="btn btn-default" data-dismiss="modal" style="font-size: 200%;">Valider</button>
+                        <button type="button" onclick="procedureEnvoi()" class="btn btn-default" data-dismiss="modal" style="font-size: 200%;">Valider</button>
                         <button type="button" onclick="resetButtonColor()" class="btn btn-default" data-dismiss="modal" style="font-size: 200%;">Annuler</button>
                     </div>
                 </div>
