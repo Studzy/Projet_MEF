@@ -34,6 +34,7 @@ async function lirePostes() {
 //Utilise une requete php pour recuperer les refrences en BDD et avec la fonction "remplirRefs()" affiche les references sur la page
 async function lireRefs() {
 	try {
+		alert('test');
 		let req = await fetch('php/references.php?id=' + posteEnCours);
 		//let req = (Chemin + '/references.php?id=' + posteEnCours);
 		let json = await req.json();
@@ -71,6 +72,10 @@ function choixRef(r, i) {
 	$("#piece" + r).addClass("active");
 	refEnCours = r;
 	dateTempo = references[i]['date_reference'];
+	var result = sessionStorage.getItem('userLocal');
+	var elementUser = document.getElementById("nom_operateur");
+	elementUser.value = result;
+	alert('geUserName');
 	/*
 	if (dateTempo != null) {
 		var date = dateTempo.split('-');
@@ -140,7 +145,7 @@ function remplirTableau() {
 	$.each(postes, function (i, obj) {
 		console.log(obj.id + ' ' + obj.poste);
 		if (i < 3) {
-			$('#listepostes').append("<li onclick='choixPoste(" + i + ")' class='list-group-item'><figure class='figure'  style='font-size: 150%;'><img class='figure-img img-fluid rounded'  width='25%' height='100%' src='img/pc.svg'><figcaption class='figure-caption'>" + obj.poste + "</figcaption></figure></li>");
+			$('#listepostes').append("<li onclick='choixPoste(" + i + ")' class='list-group-item'><figure class='figure'><img class='figure-img img-fluid rounded'  width='25%' height='100%' src='img/pc.svg'><figcaption class='figure-caption'>" + obj.poste + "</figcaption></figure></li>");
 		}
 		if (i > 2 && i < 6) {
 			$('#content').append("<ul id='listepostes2' class='list-group list-group-horizontal justify-content-center'></ul>");
@@ -325,7 +330,7 @@ function connectionUser() {
 }
 
 $(document).ready(function () {
-	
+
 	$('#choixcontrole').on('hidden.bs.modal', function () {
 		$.each(references, function (i, obj) {
 			console.log(obj.id + ' ' + obj.reference);
@@ -372,104 +377,6 @@ $(document).ready(function () {
 		recupererDerniersCtrl();
 	});
 	lirePostes();
-	
+
 
 });
-
-function storageAvailable(type) {
-	try {
-		var storage = window[type],
-			x = '__storage_test__';
-		storage.setItem(x, x);
-		storage.removeItem(x);
-		return true;
-	}
-	catch (e) {
-		return e instanceof DOMException && (
-			// everything except Firefox
-			e.code === 22 ||
-			// Firefox
-			e.code === 1014 ||
-			// test name field too, because code might not be present
-			// everything except Firefox
-			e.name === 'QuotaExceededError' ||
-			// Firefox
-			e.name === 'NS_ERROR_DOM_QUOTA_REACHED') &&
-			// acknowledge QuotaExceededError only if there's something already stored
-			storage.length !== 0;
-	}
-
-}
-function testStorage() {
-	if (storageAvailable('localStorage')) {
-		// Nous pouvons utiliser localStorage
-		alert("Nous pouvons utiliser localStorage");
-	}
-	else {
-		// Malheureusement, localStorage n'est pas disponible
-		alert("Malheureusement, localStorage n'est pas disponible");
-	}
-}
-
-//Tester si le stockage est rempli
-if (!sessionStorage.getItem('userLocal')) {
-	//populateStorage();
-	userDeconnecter();
-} else {
-	//setStyles();
-	userConnecter();
-}
-
-//Obtenir les valeurs du stockage
-function setStyles() {
-	var currentColor = localStorage.getItem('bgcolor');
-	var currentFont = localStorage.getItem('font');
-	var currentImage = localStorage.getItem('image');
-
-	document.getElementById('bgcolor').value = currentColor;
-	document.getElementById('font').value = currentFont;
-	document.getElementById('image').value = currentImage;
-
-	htmlElem.style.backgroundColor = '#' + currentColor;
-	pElem.style.fontFamily = currentFont;
-	imgElem.setAttribute('src', currentImage);
-}
-
-//Enregistrer une valeur dans le stockage
-function populateStorage() {
-	localStorage.setItem('bgcolor', document.getElementById('bgcolor').value);
-	localStorage.setItem('font', document.getElementById('font').value);
-	localStorage.setItem('image', document.getElementById('image').value);
-
-	setStyles();
-}
-
-//Definir valeur du web storage
-//localStorage.setItem('colorSetting', '#a4509b');
-
-//Definir l'utilisateur actuel
-function setLocalUser() {
-	let nomTempo = document.getElementById("nom_user");
-	let userName = nomTempo.value;
-	sessionStorage.setItem('userLocal', userName);
-}
-
-//Fonction qui modifie l'entete droite de connection avec l'utilisateur connecter
-function userConnecter() {
-	var userConnecter = sessionStorage.getItem('userLocal');
-	$('#titreConnection').html('');
-	$('#titreConnection').append("<li class='nav-item' ><a class='nav-link'>" + userConnecter + "<span class='sr-only'></span></a></li>");
-	$('#titreConnection').append("<li class='nav-item' ><a class='nav-link' onclick='userDeconnecter()'>Se deconnecter<span class='sr-only'></span></a></li>");
-}
-
-//fonction qui modifie l'entete droit de connection pour le mode deconnecter
-function userDeconnecter() {
-	$('#titreConnection').html('');
-	$('#titreConnection').append("<li class='nav-item' data-toggle='modal' data-target='#choixuser'><a class='nav-link'>Se connecter<span class='sr-only'></span></a></li>");
-}
-
-//Procedure de connection de l'utilisateur
-function connectionUtilisateur() {
-	setLocalUser();
-	userConnecter();
-}
