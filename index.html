@@ -5,11 +5,11 @@
     <meta charset="UTF-8">
     <script src="js/Jquery/jquery-3.4.1.min.js"></script>
     <script src="js/bootstrap/bootstrap.min.js"></script>
-    <!--<script src="js/ScriptMEF.js"></script>-->
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="css/custom.css">
     <title>MEF Ferrage</title>
-
+    <script>
+    </script>
 
 </head>
 
@@ -27,9 +27,16 @@
         <form action="http://localhost/Projet_MEF/controle.html">
             <div class="jumbotron center-text">
                 <div id="content" class="jumbotron">
-                    <label style="font-size: 400%;" class="">Nom d'utilisateur</label><br />
-                    <input type="text" value="" id="nom_user" style="font-size: 500%;width: 100%;" width="90%" required><br /><br />
-                    <button type="submit" onclick="setLocalUser()" class="btn btn-default" data-dismiss="modal" style="font-size: 500%;width: 100%;border: solid">Se connecter</button>
+
+                    <fieldset>
+                        <label style="font-size: 400%;" class="">Nom d'utilisateur</label><br />
+                        <input type="text" value="" id="nom_user" style="font-size: 500%;width: 100%;" width="90%" required><br /><br />
+                        <select name="poste" id="poste_select" style="font-size: 200%;height: 3em;" onchange=''>
+                            <option value="null">-- Choisir un poste --</option>
+                        </select><br /><br />
+                        <button type="submit" onclick="setLocalUser()" class="btn btn-default" style="font-size: 500%;width: 100%;border: solid">Se connecter</button>
+                    </fieldset>
+
                 </div>
             </div>
         </form>
@@ -38,25 +45,13 @@
     </main>
     <footer>
         <div class='footer text-white bg-dark text-center p-3'>© 2018-2020
-            <b><a class='text-white text-capitalize' href='https://www.groupe-psa.com/fr/'> Equipe Digitale / Groupe
-					PSA</a></b>
+            <b><a class='text-white text-capitalize' href='https://www.groupe-psa.com/fr/'> Equipe Digitale / Groupe PSA</a></b>
         </div>
     </footer>
 
 </body>
 <!--<script src="js/StorageWeb.js"></script>-->
-<script>
-    //Definir l'utilisateur actuel
-    function setLocalUser() {
-        let nomTempo = document.getElementById("nom_user");
-        let userName = nomTempo.value;
-        userName = escapeRegExp(userName);
-        sessionStorage.setItem('userLocal', userName);
-    }
-
-    function escapeRegExp(str) {
-        return str.replace(/[.*+?^$:;"!<>{}()|[\]\\]/g, ""); // $& means the whole matched string
-    }
-</script>
+<script src="js/Index.js"></script>
+<script src="js/StorageWeb.js"></script>
 
 </html>

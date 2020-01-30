@@ -33,7 +33,6 @@ async function lirePostes() {
 //Utilise une requete php pour recuperer les refrences en BDD et avec la fonction "remplirRefs()" affiche les references sur la page
 async function lireRefs() {
     try {
-        alert('test');
         let req = await fetch('php/references.php?id=' + posteEnCours);
         //let req = (Chemin + '/references.php?id=' + posteEnCours);
         let json = await req.json();
@@ -61,7 +60,7 @@ async function recupererDerniersCtrl() {
     }
 }
 
-//Fonction qui permet d'afficher les references sur la page
+//Fonction qui permet d'afficher les references sur la page et si il y a une date a verifier dans la base de données, elle va ajouter un nouveau block dans le modal pour demander a l'utilisateur de verifier la date
 function choixRef(r, i) {
 
     $.each(references, function(i, obj) {
@@ -69,21 +68,23 @@ function choixRef(r, i) {
         $('#piece' + (obj.id)).removeClass("active");
     });
     $("#piece" + r).addClass("active");
+    //resetButtonColor();
     refEnCours = r;
     dateTempo = references[i]['date_reference'];
     var result = sessionStorage.getItem('userLocal');
     var elementUser = document.getElementById("nom_operateur");
+    var BtnOK = "\"BtnDateOK\"";
+    var BtnNOK = "\"BtnDateNOK\"";
     elementUser.value = result;
-    alert('geUserName');
-    /*
+    //alert('geUserName');
     if (dateTempo != null) {
-    	var date = dateTempo.split('-');
-    	dateEnCours = date[2] + '/' + date[1] + '/' + date[0];
-    	$("#ajoutDate").append("<p>Date : </p><div class= 'row col-sm-12 my-auto'><div class='col-sm-6'><button name='' id='BtnDateOK' type='button'onclick=' changeColor('BtnDateOK')' class='tn btn-lg btn-succes' data-dismiss=''>OK</button></div><div class='col-sm-6'><button name='' id='BtnDateNOK' type='button' onclick='changeColor('BtnDateNOK')' class='btn btn-lg' data-dismiss=''>NOK</button></div></div >");
+        var date = dateTempo.split('-');
+        dateEnCours = date[2] + '/' + date[1] + '/' + date[0];
+        $("#ajoutDate").html('');
+        $("#ajoutDate").append("<p>Date à verifier : " + dateEnCours + "</p><div class='row col-sm-12 my-auto'><div class='col-sm-6'><button name='' id='BtnDateOK' type='button' onclick='changeColor(" + BtnOK + ")' class='btn btn-lg btn-succes' style='font-size: 200%;' data-dismiss=''>OK</button></div><div class='col-sm-6'><button name='' id='BtnDateNOK' type='button' onclick='changeColor(" + BtnNOK + ")' class='btn btn-lg' style='font-size: 200%;' data-dismiss=''>NOK</button></div></div>");
+    } else {
+        dateEnCours = "";
     }
-    else {
-    	dateEnCours = "";
-    }*/
 
 }
 
@@ -168,9 +169,6 @@ function remplirTableau() {
     });
 }
 
-function TestAlert() {
-    alert('Utilisation de fonction !');
-}
 //Fonction qui recupere le nom de l'operateur de l'élément avce l'ID "nom_operateur"
 function recupererNomOperateur() {
     var nom_operateur = document.getElementById("nom_operateur");
@@ -242,14 +240,20 @@ function resetButtonColor() {
     BtnQualityNOK.style.backgroundColor = '#e9ecef';
     BtnRefOK.style.backgroundColor = '#e9ecef';
     BtnRefNOK.style.backgroundColor = '#e9ecef';
-    BtnDateOK.style.backgroundColor = '#e9ecef';
-    BtnDateNOK.style.backgroundColor = '#e9ecef';
     BtnQualityOK.style.color = 'black';
     BtnQualityNOK.style.color = 'black';
     BtnRefOK.style.color = 'black';
     BtnRefNOK.style.color = 'black';
-    BtnDateOK.style.color = 'black';
-    BtnDateNOK.style.color = 'black';
+    /*BtnDateOK.style.color = 'pink';
+    BtnDateNOK.style.color = 'pink';
+    BtnDateOK.style.backgroundColor = 'brown';
+    BtnDateNOK.style.backgroundColor = 'brown';*/
+    //alert('test');
+    /*
+    $("#BoutonsQuality").html('');
+    $("#BoutonsQuality").append("<p>Qualité de la pièce : </p><div class='row col-sm-12 my-auto'><div class='col-sm-6'><button name='' id='BtnQualityOK' type='button' onclick='changeColor(" + BtnOK + ")' class='btn btn-lg btn-succes' style='font-size: 200%;' data-dismiss=''>OK</button></div><div class='col-sm-6'><button name='' id='BtnQualityNOK' type='button' onclick='changeColor(" + BtnNOK + ")' class='btn btn-lg' style='font-size: 200%;' data-dismiss=''>NOK</button></div></div>");
+    */
+
 }
 
 
@@ -269,8 +273,8 @@ function testEnvoiPhoto() {
     });
 }
 
-// Procedure qui envoie les nouvelles infos a la BDD 
-function procedureEnvvoi() {
+// Procedure qui envoie les nouvelles infos a la BDD sans la verification de la date 
+function envoiSansDate() {
     NomOperateur = recupererNomOperateur();
     if (NomOperateur != "") {
         if (VerifReference != "" && VerifQuality != "") {
@@ -281,7 +285,16 @@ function procedureEnvvoi() {
                 $.ajax({
                     type: 'POST',
                     url: 'php/write.php',
-                    data: { "userid": identifiant, "poste": posteEnCours, "ref": refEnCours, "res": res, "resQualite": VerifQuality, "resReference": VerifReference, "resDate": VerifDate, "userName": NomOperateur },
+                    data: {
+                        "userid": identifiant,
+                        "poste": posteEnCours,
+                        "ref": refEnCours,
+                        "res": res,
+                        "resQualite": VerifQuality,
+                        "resReference": VerifReference,
+                        "resDate": VerifDate,
+                        "userName": NomOperateur
+                    },
                     success: function(data) {
                         if (data.status = "ok") {
                             $("#success").show().delay(2000).fadeOut();
@@ -298,7 +311,16 @@ function procedureEnvvoi() {
                 $.ajax({
                     type: 'POST',
                     url: 'php/write.php',
-                    data: { "userid": identifiant, "poste": posteEnCours, "ref": refEnCours, "res": res, "resQualite": VerifQuality, "resReference": VerifReference, "resDate": VerifDate, "userName": NomOperateur },
+                    data: {
+                        "userid": identifiant,
+                        "poste": posteEnCours,
+                        "ref": refEnCours,
+                        "res": res,
+                        "resQualite": VerifQuality,
+                        "resReference": VerifReference,
+                        "resDate": VerifDate,
+                        "userName": NomOperateur
+                    },
                     success: function(data) {
                         if (data.status = "ok") {
                             $("#success").show().delay(2000).fadeOut();
@@ -322,7 +344,179 @@ function procedureEnvvoi() {
     //lirePostes();
 }
 
+// Procedure qui envoie les nouvelles infos a la BDD avec la verification de la date 
+function envoiAvecDate() {
+    NomOperateur = recupererNomOperateur();
+    if (NomOperateur != "") {
+        if (VerifReference != "" && VerifQuality != "") {
+            if (VerifReference == "OK" && VerifQuality == "OK" && VerifDate == "OK") {
+                let res = 1;
+                NomOperateur = recupererNomOperateur();
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'php/write.php',
+                    data: {
+                        "userid": identifiant,
+                        "poste": posteEnCours,
+                        "ref": refEnCours,
+                        "res": res,
+                        "resQualite": VerifQuality,
+                        "resReference": VerifReference,
+                        "resDate": VerifDate,
+                        "userName": NomOperateur
+                    },
+                    success: function(data) {
+                        if (data.status = "ok") {
+                            $("#success").show().delay(2000).fadeOut();
+                            recupererDerniersCtrl();
+                        } else {
+                            $("echec").show().delay(2000).fadeOut();
+                            recupererDerniersCtrl();
+                        }
+                    }
+                });
+                recupererDerniersCtrl();
+            } else {
+                let res = 0;
+                $.ajax({
+                    type: 'POST',
+                    url: 'php/write.php',
+                    data: {
+                        "userid": identifiant,
+                        "poste": posteEnCours,
+                        "ref": refEnCours,
+                        "res": res,
+                        "resQualite": VerifQuality,
+                        "resReference": VerifReference,
+                        "resDate": VerifDate,
+                        "userName": NomOperateur
+                    },
+                    success: function(data) {
+                        if (data.status = "ok") {
+                            $("#success").show().delay(2000).fadeOut();
+                            recupererDerniersCtrl();
+                        } else {
+                            $("echec").show().delay(2000).fadeOut();
+                            recupererDerniersCtrl();
+                        }
+                    }
+                });
+                recupererDerniersCtrl();
+            }
+        }
+    } else {
+        alert("Veuillez vous connecter");
+    }
+    VerifDate = "";
+    VerifQuality = "";
+    VerifReference = "";
+    resetButtonColor();
+    //lirePostes();
+}
+
+
+function procedureEnvoi() {
+    if (dateEnCours != "") {
+        envoiAvecDate();
+    } else {
+        envoiSansDate();
+    }
+}
+
+
 function connectionUser() {
     utilisateurConnecter = recupererNomOperateur();
+
+}
+
+$(document).ready(function() {
+
+    $('#choixcontrole').on('hidden.bs.modal', function() {
+        $.each(references, function(i, obj) {
+            console.log(obj.id + ' ' + obj.reference);
+            $('#piece' + (obj.id)).removeClass("active");
+        });
+    });
+
+
+    $('#nok').click(function() {
+        let res = 0;
+        $.ajax({
+            type: 'POST',
+            url: 'php/write.php',
+            data: {
+                "userid": identifiant,
+                "poste": posteEnCours,
+                "ref": refEnCours,
+                "res": res
+            },
+            success: function(data) {
+                if (data.status = "ok") {
+                    $("#success").show().delay(2000).fadeOut();
+                    recupererDerniersCtrl();
+                } else {
+                    $("echec").show().delay(2000).fadeOut();
+                    recupererDerniersCtrl();
+                }
+            },
+        });
+        recupererDerniersCtrl();
+    });
+
+    $('#ok').click(function() {
+        let res = 1;
+        $.ajax({
+            type: 'POST',
+            url: 'php/write.php',
+            data: {
+                "userid": identifiant,
+                "poste": posteEnCours,
+                "ref": refEnCours,
+                "res": res
+            },
+            success: function(data) {
+                if (data.status = "ok") {
+                    $("#success").show().delay(2000).fadeOut();
+                    recupererDerniersCtrl();
+                } else {
+                    $("echec").show().delay(2000).fadeOut();
+                    recupererDerniersCtrl();
+                }
+            }
+        });
+        recupererDerniersCtrl();
+    });
+    lirePostes();
+
+
+});
+
+//window.location.assign("http://localhost/Projet_MEF/controle.html");
+/*if (!sessionStorage.getItem('userLocal')) {
+    //populateStorage();
+    //userDeconnecter();
+    //alert('Deconnecter !')
+    //$('#contenu').html('');
+    //connectionUtilisateur();
+
+} else {
+    //setStyles();
+    //connectionUtilisateur();
+    $('#nom_operateur').html('');
+    userConnecter();
+    //alert('Connecté ! ' + sessionStorage.getItem('userLocal'));
+}
+//fonction qui modifie l'entete droit de connection pour le mode deconnecter
+/*function userDeconnecter() {
+    sessionStorage.clear();
+}*/
+
+
+function getUserName() {
+    var result = sessionStorage.getItem('userLocal');
+    var elementUser = document.getElementById("nom_operateur");
+    elementUser.value = result;
+    //alert('geUserName');
 
 }

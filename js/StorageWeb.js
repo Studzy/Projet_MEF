@@ -8,9 +8,11 @@ function setLocalUser() {
 //Fonction qui modifie l'entete droite de connection avec l'utilisateur connecter
 function userConnecter() {
     var userConnecter = sessionStorage.getItem('userLocal');
+    var posteUser = sessionStorage.getItem('posteLocal');
     $('#titreConnection').html('');
+    $('#titreConnection').append("<li class='nav-item' ><a class='nav-link'>" + posteUser + " - <span class='sr-only'></span></a></li>");
     $('#titreConnection').append("<li class='nav-item' ><a class='nav-link'>" + userConnecter + "<span class='sr-only'></span></a></li>");
-    $('#titreConnection').append("<li class='nav-item' ><a class='nav-link' href='http://localhost/Projet_MEF/index.html' onclick='userDeconnecter()'>Se deconnecter<span class='sr-only'></span></a></li>");
+    $('#titreConnection').append("<li class='nav-item' ><a class='nav-link' href='http://localhost/Projet_MEF/index.html' onclick='userDeconnecter()'>Se deconnecter<span class='sr-only'></span></a></li>"); // ****** Chemin d'accès *****
 
 }
 
@@ -30,7 +32,7 @@ async function connectionUtilisateur() {
 if (!sessionStorage.getItem('userLocal')) {
     //populateStorage();
     //userDeconnecter();
-    alert('Deconnecter !')
+    //alert('Deconnecter !')
     //$('#contenu').html('');
     //connectionUtilisateur();
 
@@ -39,5 +41,29 @@ if (!sessionStorage.getItem('userLocal')) {
     //connectionUtilisateur();
     $('#nom_operateur').html('');
     userConnecter();
-    alert('Connecter !' + sessionStorage.getItem('userLocal'));
+    //alert('Connecté ! ' + sessionStorage.getItem('userLocal'));
+}
+
+//Definir l'utilisateur actuel
+function setLocalUser() {
+    let nomTempo = document.getElementById("nom_user");
+    let posteTempo = document.getElementById('poste_select');
+    let choice = posteTempo.selectedIndex;
+    let posteUser = posteTempo.options[choice].value;
+    let userName = nomTempo.value;
+    userName = escapeRegExp(userName);
+    sessionStorage.setItem('userLocal', userName);
+    sessionStorage.setItem('posteLocal', posteUser);
+    alert("Nom utilisateur : " + posteUser + " - " + userName);
+
+    /* let nomTempo = document.getElementById("nom_user");
+    alert('1');
+    let userName = nomTempo.value;
+    userName = escapeRegExp(userName);
+    sessionStorage.setItem('userLocal', userName);
+    alert('2');*/
+}
+
+function escapeRegExp(str) {
+    return str.replace(/[.*+?^$:;"!<>{}()|[\]\\]/g, ""); // $& means the whole matched string
 }
