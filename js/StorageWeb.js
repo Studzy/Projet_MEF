@@ -10,7 +10,7 @@ function userConnecter() {
     var userConnecter = sessionStorage.getItem('userLocal');
     var posteUser = sessionStorage.getItem('posteLocal');
     $('#titreConnection').html('');
-    $('#titreConnection').append("<li data-toggle='modal' data-target='#choixposte' class='nav-item' ><a class='nav-link'>" + posteUser + " - <span class='sr-only'></span></a></li>");
+    $('#titreConnection').append("<li data-toggle='modal' onclick='lirePostesModal()' data-target='#choixposte' class='nav-item' ><a class='nav-link'>" + posteUser + " - <span class='sr-only'></span></a></li>");
     $('#titreConnection').append("<li data-toggle='modal' data-target='#choixuser' class='nav-item' ><a class='nav-link'>" + userConnecter + "<span class='sr-only'></span></a></li>");
     $('#titreConnection').append("<li class='nav-item' ><a class='nav-link' href='http://localhost/Projet_MEF/index.html' onclick='userDeconnecter()'><img class='nav-link' width='7.5%' height='7.5%' src='img/sortie.jpg'/></a></li>"); // ****** Chemin d'accès *****
 
@@ -74,4 +74,13 @@ async function resetLocalUser() {
     userName = escapeRegExp(userName);
     sessionStorage.setItem('userLocal', userName);
     userConnecter();
+}
+
+async function resetLocalPoste() {
+    let posteTempo = document.getElementById('poste_select');
+    let choice = posteTempo.selectedIndex;
+    let posteUser = posteTempo.options[choice].value;
+    sessionStorage.setItem('posteLocal', posteUser);
+    userConnecter();
+    document.location.reload(true);
 }

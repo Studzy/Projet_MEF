@@ -33,7 +33,7 @@ require('bdd.php');
             'resDate' => $resDate,
             'userName' => $userName,
 	        ));
-
+                
         $response['status'] = "ok";
         echo json_encode($response);
     } catch (Exception $e) {

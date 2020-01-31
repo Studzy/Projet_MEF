@@ -13,6 +13,7 @@ let identifiant = "1";
 let dateTempo = "";
 let dateEnCours = "";
 
+
 //Fonction qui recupère les postes grâce a une requete php et qui avec la fonction "remplirTableau()" affiche les poste sur la page
 async function lirePostes() {
     try {
@@ -28,6 +29,40 @@ async function lirePostes() {
     } catch (err) {
         console.log(err);
     }
+}
+
+async function lirePostesModal() {
+    try {
+        //let req = await fetch(Chemin + '/postes.php');
+        let req = await fetch('php/postes.php');
+        //let req = ('D:\Users\jerem\Documents\Travail\Projet\PDS MEF Ferrage\meffer\postes.php');
+        let json = await req.json();
+        if (json.length) {
+            postes = json;
+            ToutADefaut();
+            remplirListeDeroulantePoste();
+        }
+
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+function ToutADefaut() {
+    $("#poste_select").html('');
+}
+
+function remplirListeDeroulantePoste() {
+    //$("#poste_select").html('');
+    $.each(postes, function(i, obj) {
+        console.log(obj.id + ' ' + obj.poste);
+        $('#poste_select').append("<option value='" + obj.poste + "'>" + obj.poste + "</option>");
+    });
+}
+
+async function procedureChoixPoste() {
+    resetLocalPoste();
+    choixPoste();
 }
 
 //Utilise une requete php pour recuperer les refrences en BDD et avec la fonction "remplirRefs()" affiche les references sur la page

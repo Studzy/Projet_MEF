@@ -115,6 +115,10 @@ function listeDeroulanteDefaut() {
 }
 
 function ToutADefaut() {
+    $("#ref_select").html('');
+    $('#ref_select').append("<option value='null'>--Choisir une référence--</option>");
+    $("#poste_select_dest").html('');
+    $('#poste_select_dest').append("<option value='null'>--Choisir un poste--</option>");
     $("#poste_select").html('');
     $('#poste_select').append("<option value='null'>--Choisir un poste--</option>");
 
