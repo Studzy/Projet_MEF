@@ -77,6 +77,28 @@
                 </div>
             </div>
         </div>
+        <div class="modal fade" id="choixposte" role="dialog">
+            <div class="modal-dialog" style="max-width: 90%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title">Choix du poste</h2>
+                    </div>
+                    <div class="modal-body" id="connection">
+                        <fieldset>
+                            <input type="text" value="" id="nom_user" style="font-size: 500%;width: 100%;" width="90%" required><br /><br />
+                            <select name="poste" id="poste_select" style="font-size: 200%;height: 3em;" onchange='' required>
+                                <option value="">-- Choisir un poste --</option>
+                            </select><br /><br />
+                            <button type="submit" onclick="setLocalUser()" class="btn btn-default" style="font-size: 500%;width: 100%;border: solid">Se connecter</button>
+                        </fieldset>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" onclick="resetLocalUser()" class="btn btn-default" data-dismiss="modal" style="font-size: 100%;">Se connecter</button>
+                        <button type="button" onclick="" class="btn btn-default" data-dismiss="modal" style="font-size: 100%;">Annuler</button>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="modal fade" id="choixcontrole" role="dialog">
             <div class="modal-dialog" style="max-width:90%;">
                 <div class="modal-content">

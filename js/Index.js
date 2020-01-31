@@ -25,7 +25,7 @@ async function lirePostes() {
 
 function ToutADefaut() {
     $("#poste_select").html('');
-    $('#poste_select').append("<option value='null'>--Choisir un poste--</option>");
+    $('#poste_select').append("<option value=''>--Choisir un poste--</option>");
 
 }
 
