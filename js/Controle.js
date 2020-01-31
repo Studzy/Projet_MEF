@@ -124,12 +124,14 @@ function remplirRefs() {
 }
 
 //Fonction qui après la selection du poste va afficher les references
-function choixPoste(p) {
-    posteEnCours = postes[p].id
+//function choixPoste(p) {
+function choixPoste() {
+    //posteEnCours = postes[p].id
     $("#content").html('');
-    $("#poste").html(postes[p].poste);
+    //$("#poste").html(postes[p].poste);
+    $("#poste").html(sessionStorage.getItem('posteLocal'));
     $("#content").append("<div class='col-sm-6' id='derniersCtrl'></div><div class='col-sm-6' id='choixpieces'></div>");
-    $("#choixpieces").append("<h3 class='text-center display-5'>Choissisez la référence</h3><br />");
+    $("#choixpieces").append("<h3 class='text-center display-5'>Choisissez la référence</h3><br />");
     //$("#choixpieces").append("<ul id='listerefs' class='list-group list-group-horizontal justify-content-center'></ul>");
     $("#choixpieces").append("<ul id='listerefs' class='' width='50%'></ul>");
     $("#derniersCtrl").append("<table id='tab_ctrl' class='table table-responsive-md table-striped table-bordered table-active text-center'></table>");
@@ -431,7 +433,9 @@ function connectionUser() {
 }
 
 $(document).ready(function() {
-
+    let recupPoste = sessionStorage.getItem('posteLocal');
+    posteEnCours = recupPoste.replace("Poste", "");
+    //alert(posteEnCours);
     $('#choixcontrole').on('hidden.bs.modal', function() {
         $.each(references, function(i, obj) {
             console.log(obj.id + ' ' + obj.reference);
@@ -487,7 +491,9 @@ $(document).ready(function() {
         });
         recupererDerniersCtrl();
     });
-    lirePostes();
+    //lirePostes();
+    //lireRefs();
+    choixPoste();
 
 
 });

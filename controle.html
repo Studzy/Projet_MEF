@@ -24,7 +24,7 @@
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-            <div class="collapse navbar-collapse menu-texte" id="navbarSupportedContent" style="font-size: 175%;">
+            <div class="collapse navbar-collapse menu-texte" id="navbarSupportedContent" style="font-size: 150%;">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
                         <a class="nav-link" href="http://localhost/Projet_MEF/controle.html">Contrôle <span
@@ -38,17 +38,7 @@
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right" id="titreConnection">
-                    <li class='nav-item' style="border-left: white solid;">
-                        <!--<a class='nav-link' href="http://localhost/Projet_MEF/index.html" onclick='userDeconnecter()'>Se
-							deconnecter<span class='sr-only'></span></a>-->
-                        <!-- ****** Chemin d'accès ***** -->
-                        <!--<span id="poste" class="sr-only"></span>-->
-                        <a class='nav-link' href='http://localhost/Projet_MEF/index.html' onclick='userDeconnecter()'>
-                            <span class='sr-only'>
-                                <img width='10%' height='10%' src='img/sortie.jpg'/>
-                            </span>
-                        </a>
-                    </li>
+
                 </ul>
             </div>
         </nav>
@@ -78,11 +68,11 @@
                         <h2 class="modal-title">Nom d'utilisateur</h2>
                     </div>
                     <div class="modal-body" id="connection">
-                        <input type="text" value='' id="nom_user" style="font-size: 450%;">
+                        <input type="text" value='' id="nom_user" style="font-size: 150%;">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" onclick="" class="btn btn-default" data-dismiss="modal" style="font-size: 500%;">Valider</button>
-                        <button type="button" onclick="" class="btn btn-default" data-dismiss="modal" style="font-size: 500%;">Annuler</button>
+                        <button type="button" onclick="resetLocalUser()" class="btn btn-default" data-dismiss="modal" style="font-size: 100%;">Se connecter</button>
+                        <button type="button" onclick="" class="btn btn-default" data-dismiss="modal" style="font-size: 100%;">Annuler</button>
                     </div>
                 </div>
             </div>
