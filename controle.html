@@ -18,7 +18,7 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-sm bg-dark">
-            <img width="7.5%" height="7.5%" src="img/home.png">
+            <img width="10%" height="10%" src="img/home.png">
             <a class="navbar-brand font-weight-bold" style="color : white !important;" href="http://localhost/Projet_MEF/controle.html">Ferrage</a>
             <!-- ****** Chemin d'accès ***** -->
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -37,8 +37,12 @@
                         <!-- ****** Chemin d'accès ***** -->
                     </li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right" id="titreConnection">
-
+                <ul class="nav navbar-nav navbar-right slices" id="TitreConnection">
+                    <!--<li class='nav-item' style="border-left: white solid;">
+                        <a class='nav-link' href="http://localhost/Projet_MEF/index.html" onclick='userDeconnecter()'>Se
+							deconnecter<span class='sr-only'></span></a>
+                        <span id="poste" class="sr-only"></span>
+                    </li>-->
                 </ul>
             </div>
         </nav>
@@ -71,7 +75,7 @@
                         <input type="text" value='' id="nom_user" style="font-size: 150%;">
                     </div>
                     <div class="modal-footer">
-                        <button type="button" onclick="resetLocalUser()" class="btn btn-default" data-dismiss="modal" style="font-size: 100%;">Changer le poste</button>
+                        <button type="button" onclick="resetLocalUser()" class="btn btn-default" data-dismiss="modal" style="font-size: 100%;">Changer d'utilisateur</button>
                         <button type="button" onclick="" class="btn btn-default" data-dismiss="modal" style="font-size: 100%;">Annuler</button>
                     </div>
                 </div>
@@ -90,7 +94,7 @@
                         </fieldset>
                     </div>
                     <div class="modal-footer">
-                        <button type="submit" onclick="procedureChoixPoste()" class="btn btn-default" data-dismiss="modal" style="font-size: 100%;">Se connecter</button>
+                        <button type="submit" onclick="procedureChoixPoste()" class="btn btn-default" data-dismiss="modal" style="font-size: 100%;">Changer de poste</button>
                         <button type="button" onclick="" class="btn btn-default" data-dismiss="modal" style="font-size: 100%;">Annuler</button>
                     </div>
                 </div>
@@ -123,7 +127,7 @@
 
                         <br />
                         <div id="BoutonsRef">
-                            <p>Référence : </p>
+                            <span id='NumRef'><p>Référence : </p></span>
 
                             <div class="row col-sm-12 my-auto">
 
