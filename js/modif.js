@@ -63,7 +63,7 @@ async function modifEmplacementRef() {
                 if (data.status = "ok") {
                     //console.log('4');
                     $("#success").show().delay(2000).fadeOut();
-                    alert("La modification a été enregistrer !");
+                    //alert("La modification a été enregistrer !");
                     //console.log('5');
                     lirePostes();
                     //console.log('6');
@@ -71,13 +71,15 @@ async function modifEmplacementRef() {
                 } else {
                     //console.log('7');
                     $("#echec").show().delay(2000).fadeOut();
-                    alert("Echec de la modification !");
+                    //alert("Echec de la modification !");
                     //console.log('8');
                     //recupererDerniersCtrl();
                 }
             }
 
         });
+        alert("La modification a été enregistrer !");
+
     }
 
 }
