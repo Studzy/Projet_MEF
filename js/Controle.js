@@ -250,6 +250,7 @@ function resetButtonColor() {
     BtnQualityNOK.style.color = 'black';
     BtnRefOK.style.color = 'black';
     BtnRefNOK.style.color = 'black';
+    $("#ajoutDate").html('');
     /*BtnDateOK.style.color = 'pink';
     BtnDateNOK.style.color = 'pink';
     BtnDateOK.style.backgroundColor = 'brown';
