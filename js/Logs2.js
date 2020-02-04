@@ -96,12 +96,12 @@ function remplirDerniersCtrl() {
             if (controles.hasOwnProperty(prop)) {
                 if (controles[prop]) {
                     if (controles[prop] == 1) {
-                        tableau.find('tr').last().append('<td style="background-color:green;">OK</td>');
+                        tableau.find('tr').last().append('<td style="background-color:green;color:white;font-weight:bold;">OK</td>');
                     } else {
                         tableau.find('tr').last().append('<td>' + controles[prop] + '</td>');
                     }
                 } else {
-                    tableau.find('tr').last().append('<td style="background-color:red;">NOK</td>');
+                    tableau.find('tr').last().append('<td style="background-color:red;color:white;font-weight:bold;">NOK</td>');
                 }
             }
 
