@@ -5,9 +5,11 @@
     <meta charset="UTF-8">
     <script src="js/Jquery/jquery-3.4.1.min.js"></script>
     <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script src="js/Logs2.js"></script>
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="css/custom.css">
     <script>
+        lirePostes();
     </script>
     <title>MEF Ferrage</title>
 </head>
@@ -15,26 +17,31 @@
 <body>
     <header>
         <nav class="navbar navbar-expand-sm bg-dark">
-            <img width="7.5%" height="7.5%" src="img/home.png">
+            <img width="10%" height="10%" src="img/home.png">
             <a class="navbar-brand font-weight-bold" style="color : white !important;" href="http://localhost/Projet_MEF/controle.html">Ferrage</a>
+            <!-- ****** Chemin d'accès ***** -->
             <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
 				<span class="navbar-toggler-icon"></span>
 			</button>
-            <div class="collapse navbar-collapse menu-texte" id="navbarSupportedContent" style="font-size: 175%;">
+            <div class="collapse navbar-collapse menu-texte" id="navbarSupportedContent" style="font-size: 150%;">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="http://localhost/Projet_MEF/controle.html">Contrôle <span class="sr-only"></span></a>
+                        <a class="nav-link" href="http://localhost/Projet_MEF/controle.html">Contrôle <span
+								class="sr-only">(current)</span></a>
+                        <!-- ****** Chemin d'accès ***** -->
                     </li>
                     <li class="nav-item active">
-                        <a class="nav-link" href="http://localhost/Projet_MEF/logs2.html">Historique<span class="sr-only">(current)</span></a>
+                        <a class="nav-link" href="http://localhost/Projet_MEF/logs2.html">Historique<span
+								class="sr-only"></span></a>
+                        <!-- ****** Chemin d'accès ***** -->
                     </li>
                 </ul>
-                <ul class="nav navbar-nav navbar-right" id="titreConnection">
-                    <li class='nav-item'>
+                <ul class="nav navbar-nav navbar-right slices" id="TitreConnection">
+                    <!--<li class='nav-item' style="border-left: white solid;">
                         <a class='nav-link' href="http://localhost/Projet_MEF/index.html" onclick='userDeconnecter()'>Se
 							deconnecter<span class='sr-only'></span></a>
-                        <!--<span id="poste" class="sr-only"></span>-->
-                    </li>
+                        <span id="poste" class="sr-only"></span>
+                    </li>-->
                 </ul>
             </div>
         </nav>
@@ -55,6 +62,41 @@
             <ul id="listepostes" class="list-group list-group-horizontal justify-content-center">
             </ul>
         </div>
+        <div class="modal fade" id="choixuser" role="dialog">
+            <div class="modal-dialog" style="max-width: 90%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title">Nom d'utilisateur</h2>
+                    </div>
+                    <div class="modal-body" id="connection">
+                        <input type="text" value='' id="nom_user" style="font-size: 150%;">
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" onclick="resetLocalUser()" class="btn btn-default" data-dismiss="modal" style="font-size: 100%;">Changer d'utilisateur</button>
+                        <button type="button" onclick="" class="btn btn-default" data-dismiss="modal" style="font-size: 100%;">Annuler</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="modal fade" id="choixposte" role="dialog">
+            <div class="modal-dialog" style="max-width: 90%;">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h2 class="modal-title">Choix du poste</h2>
+                    </div>
+                    <div class="modal-body" id="connection">
+                        <fieldset>
+                            <select name="poste" id="poste_select" style="font-size: 100%;height: 3em;width: 40%;" onchange='' required>
+                            </select><br /><br />
+                        </fieldset>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="submit" onclick="procedureChoixPoste()" class="btn btn-default" data-dismiss="modal" style="font-size: 100%;">Changer de poste</button>
+                        <button type="button" onclick="" class="btn btn-default" data-dismiss="modal" style="font-size: 100%;">Annuler</button>
+                    </div>
+                </div>
+            </div>
+        </div>
     </main>
     <footer>
         <div class='footer text-white bg-dark text-center p-3'>© 2018-2020
@@ -63,33 +105,7 @@
         </div>
     </footer>
 </body>
-<script>
-    if (!sessionStorage.getItem('userLocal')) {
-        //populateStorage();
-        //userDeconnecter();
-        //alert('Deconnecter !')
-        //$('#contenu').html('');
-        //connectionUtilisateur();
 
-    } else {
-        //setStyles();
-        //connectionUtilisateur();
-        $('#nom_operateur').html('');
-        userConnecter();
-        //alert('Connecté ! ' + sessionStorage.getItem('userLocal'));
-    }
-    //fonction qui modifie l'entete droit de connection pour le mode deconnecter
-    function userDeconnecter() {
-        sessionStorage.clear();
-    }
-    //Fonction qui modifie l'entete droite de connection avec l'utilisateur connecter
-    function userConnecter() {
-        var userConnecter = sessionStorage.getItem('userLocal');
-        $('#titreConnection').html('');
-        $('#titreConnection').append("<li class='nav-item' ><a class='nav-link'>" + userConnecter + "<span class='sr-only'></span></a></li>");
-        $('#titreConnection').append("<li class='nav-item' ><a class='nav-link' href='http://localhost/Projet_MEF/index.html' onclick='userDeconnecter()'>Se deconnecter<span class='sr-only'></span></a></li>");
-
-    }
-</script>
+<script src="js/StorageWeb.js"></script>
 
 </html>

@@ -11,7 +11,7 @@ let identifiant = "1";
 async function lirePostes() {
     try {
         //let req = await fetch(Chemin + '/postes.php');
-        let req = await fetch(Chemin + '/postes.php');
+        let req = await fetch('php/postes.php');
         //let req = ('D:\Users\jerem\Documents\Travail\Projet\PDS MEF Ferrage\meffer\postes.php');
         let json = await req.json();
         if (json.length) {
@@ -23,10 +23,13 @@ async function lirePostes() {
         console.log(err);
     }
 }
-
+async function procedureChoixPoste() {
+    resetLocalPoste();
+    choixPoste();
+}
 async function lireRefs() {
     try {
-        let req = await fetch(Chemin + '/references.php?id=' + posteEnCours);
+        let req = await fetch('php/references.php?id=' + posteEnCours);
         //let req = (Chemin + '/references.php?id=' + posteEnCours);
         let json = await req.json();
         if (json.length) {
@@ -40,7 +43,7 @@ async function lireRefs() {
 
 async function recupererDerniersCtrl() {
     try {
-        let req = await fetch(Chemin + '/lastctrl.php?id=' + posteEnCours);
+        let req = await fetch('php/lastctrl.php?id=' + posteEnCours);
         //let req = await (Chemin + '/references.php?id=' + posteEnCours);
         let json = await req.json();
         if (json.length) {
@@ -123,7 +126,7 @@ function choixPoste(p) {
     $("#content").append("<div class='jumbotron' id='titres_main'></div>");
     $("#titres_main").append("<h1 class='text-center display-4'>MEF Ferrage historique conformité</h1><br />");
     $("#titres_main").append("<div class='jumbotron'><div class='row col-md-10 mx-auto p-4'><table id='tab_ctrl' class='table table-responsive-md table-striped table-bordered table-active text-center'></table></div></div>");
-    $("#tab_ctrl").append("<thead><tr><th>#</th><th>Date/heure</th><th>Identifiant</th><th>Poste</th><th>Référence</th></th><th>Etat</th></tr></thead><tbody></tbody>");
+    $("#tab_ctrl").append("<thead><tr><th>Date/heure</th><th>Identifiant</th><th>Poste</th><th>Référence</th></th><th>Etat</th></tr></thead><tbody></tbody>");
     //lireRefs();
     recupererDerniersCtrl();
 }
@@ -161,65 +164,9 @@ function remplirTableau() {
 }
 
 $(document).ready(function() {
-    $('#choixcontrole').on('hidden.bs.modal', function() {
-        $.each(references, function(i, obj) {
-            console.log(obj.id + ' ' + obj.reference);
-            $('#piece' + (obj.id)).removeClass("active");
-        });
-    });
-
-    $('#nok').click(function() {
-        let res = 0;
-        $.ajax({
-            type: 'POST',
-            url: 'write.php',
-            data: {
-                "userid": identifiant,
-                "poste": posteEnCours,
-                "ref": refEnCours,
-                "res": res
-            },
-            success: function(data) {
-                if (data.status = "ok") {
-                    $("#success").show().delay(2000).fadeOut();
-                } else {
-                    $("echec").show().delay(2000).fadeOut();
-                }
-            },
-        });
-        recupererDerniersCtrl();
-    });
-
-    $('#ok').click(function() {
-        let res = 1;
-        $.ajax({
-            type: 'POST',
-            url: 'write.php',
-            data: {
-                "userid": identifiant,
-                "poste": posteEnCours,
-                "ref": refEnCours,
-                "res": res
-            },
-            success: function(data) {
-                if (data.status = "ok") {
-                    $("#success").show().delay(2000).fadeOut();
-                } else {
-                    $("echec").show().delay(2000).fadeOut();
-                }
-            }
-        });
-        recupererDerniersCtrl();
-    });
-
-    lirePostes();
-
-});
-
-$(document).ready(function() {
     $.ajax({
         type: 'POST',
-        url: 'read.php',
+        url: 'php/read.php',
         data: "read=y",
         success: function(data) {
             logs = data;

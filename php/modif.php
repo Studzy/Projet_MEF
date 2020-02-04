@@ -15,6 +15,7 @@ require('bdd.php');
 
         $response['status'] = "ok";
         echo json_encode($response);
+        
     } catch (Exception $e) {
         die('Erreur requete : ' . $e->getMessage());
     }

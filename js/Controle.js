@@ -31,39 +31,6 @@ async function lirePostes() {
     }
 }
 
-async function lirePostesModal() {
-    try {
-        //let req = await fetch(Chemin + '/postes.php');
-        let req = await fetch('php/postes.php');
-        //let req = ('D:\Users\jerem\Documents\Travail\Projet\PDS MEF Ferrage\meffer\postes.php');
-        let json = await req.json();
-        if (json.length) {
-            postes = json;
-            ToutADefaut();
-            remplirListeDeroulantePoste();
-        }
-
-    } catch (err) {
-        console.log(err);
-    }
-}
-
-function ToutADefaut() {
-    $("#poste_select").html('');
-}
-
-function remplirListeDeroulantePoste() {
-    //$("#poste_select").html('');
-    $.each(postes, function(i, obj) {
-        console.log(obj.id + ' ' + obj.poste);
-        $('#poste_select').append("<option value='" + obj.poste + "'>" + obj.poste + "</option>");
-    });
-}
-
-async function procedureChoixPoste() {
-    resetLocalPoste();
-    choixPoste();
-}
 
 //Utilise une requete php pour recuperer les refrences en BDD et avec la fonction "remplirRefs()" affiche les references sur la page
 async function lireRefs() {
@@ -114,11 +81,11 @@ function choixRef(r, i) {
     var BtnNOK = "\"BtnDateNOK\"";
     elementUser.value = result;
     //alert('geUserName');
-    if (dateTempo != null) {
-        var date = dateTempo.split('-');
-        dateEnCours = date[2] + '/' + date[1] + '/' + date[0];
+    if (dateTempo == 1) {
+        //var date = dateTempo.split('-');
+        //dateEnCours = date[2] + '/' + date[1] + '/' + date[0];
         $("#ajoutDate").html('');
-        $("#ajoutDate").append("<p>Date à verifier : " + dateEnCours + "</p><div class='row col-sm-12 my-auto'><div class='col-sm-6'><button name='' id='BtnDateOK' type='button' onclick='changeColor(" + BtnOK + ")' class='btn btn-lg btn-succes' style='font-size: 200%;' data-dismiss=''>OK</button></div><div class='col-sm-6'><button name='' id='BtnDateNOK' type='button' onclick='changeColor(" + BtnNOK + ")' class='btn btn-lg' style='font-size: 200%;' data-dismiss=''>NOK</button></div></div>");
+        $("#ajoutDate").append("<p>Date limite d'utilisation : </p><div class='row col-sm-12 my-auto'><div class='col-sm-6'><button name='' id='BtnDateOK' type='button' onclick='changeColor(" + BtnOK + ")' class='btn btn-lg btn-succes' style='font-size: 200%;' data-dismiss=''>OK</button></div><div class='col-sm-6'><button name='' id='BtnDateNOK' type='button' onclick='changeColor(" + BtnNOK + ")' class='btn btn-lg' style='font-size: 200%;' data-dismiss=''>NOK</button></div></div>");
     } else {
         dateEnCours = "";
     }
@@ -172,7 +139,7 @@ function choixPoste() {
     //$("#choixpieces").append("<ul id='listerefs' class='list-group list-group-horizontal justify-content-center'></ul>");
     $("#choixpieces").append("<ul id='listerefs' class='' width='50%'></ul>");
     $("#derniersCtrl").append("<table id='tab_ctrl' class='table table-responsive-md table-striped table-bordered table-active text-center'></table>");
-    $("#tab_ctrl").append("<thead><tr><th>#</th><th>Date/heure</th><th>Nom</th><th>Poste</th><th>Référence</th></th><th>Etat</th></tr></thead><tbody></tbody>");
+    $("#tab_ctrl").append("<thead><tr><th>Date/heure</th><th>Nom</th><th>Poste</th><th>Référence</th></th><th>Etat</th></tr></thead><tbody></tbody>");
     lireRefs();
 }
 

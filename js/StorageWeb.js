@@ -15,7 +15,7 @@ function userConnecter() {
     //$('#imgConnection').html('');
     $('#TitreConnection').html('');
     //$('#TitreConnection').append("<table><tr><td data-toggle='modal' onclick='lirePostesModal()' data-target='#choixposte' class='' ><a class=''><p>" + posteUser + " - </p><span class='sr-only'></span></a></td><td data-toggle='modal' data-target='#choixuser' class='' ><a class=''><p>" + userConnecter + "</p><span class=''></span></a></td><td data-toggle='modal' data-target='#choixuser' class='' style='width:5%;' ><a class='' href='http://localhost/Projet_MEF/index.html' onclick='userDeconnecter()'><span class=''></span><img id='sortie'class='' width='9%' height='9%'  style='' src='img/sortie.png'/></a></td></tr></table>");
-    $('#TitreConnection').append("<li data-toggle='modal' onclick='lirePostesModal()' data-target='#choixposte' class='nav-item active' ><a class='nav-link'>" + posteUser + "<span class='sr-only'></span></a></li><li data-toggle='modal' data-target='#choixuser' class='nav-item active' ><a class='nav-link'>" + userConnecter + "<span class='sr-only'></span></a></li><li data-toggle='modal' data-target='#choixuser' class='nav-item active' style='width:50%;text-align:right;' ><a class='nav-link' href='http://localhost/Projet_MEF/index.html' onclick='userDeconnecter()'><span class='sr-only'></span><img id='sortie'class='' width='12.5%' height='12.5%'  style='' src='img/sortie.png'/></a></li>"); // ****** Chemin d'accès ******
+    $('#TitreConnection').append("<li data-toggle='modal' onclick='lirePostesModal()' data-target='#choixposte' class='nav-item active' ><a class='nav-link'>" + posteUser + "<span class='sr-only'></span></a></li><li data-toggle='modal' data-target='#choixuser' class='nav-item active' ><a class='nav-link'>" + userConnecter + "<span class='sr-only'></span></a></li><li data-toggle='modal' data-target='#choixuser' class='nav-item active' style='width:50%;text-align:right;max-width:100px;' ><a class='nav-link' href='http://localhost/Projet_MEF/index.html' onclick='userDeconnecter()'><span class='sr-only'></span><img id='sortie'class='' width='50%' height='50%'  style='' src='img/sortie.png'/></a></li>"); // ****** Chemin d'accès ******
     //<li><p style='text-align:right;'><a class='nav-item active' href='http://localhost/Projet_MEF/index.html' onclick='userDeconnecter()'><img class='nav-link' width='7.5%' height='7.5%'  style='' src='img/sortie.jpg'/></a></p></li>
 }
 
@@ -86,4 +86,39 @@ async function resetLocalPoste() {
     sessionStorage.setItem('posteLocal', posteUser);
     userConnecter();
     document.location.reload(true);
+}
+
+
+async function lirePostesModal() {
+    try {
+        //let req = await fetch(Chemin + '/postes.php');
+        let req = await fetch('php/postes.php');
+        //let req = ('D:\Users\jerem\Documents\Travail\Projet\PDS MEF Ferrage\meffer\postes.php');
+        let json = await req.json();
+        if (json.length) {
+            postes = json;
+            ToutADefaut();
+            remplirListeDeroulantePoste();
+        }
+
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+function ToutADefaut() {
+    $("#poste_select").html('');
+}
+
+function remplirListeDeroulantePoste() {
+    //$("#poste_select").html('');
+    $.each(postes, function(i, obj) {
+        console.log(obj.id + ' ' + obj.poste);
+        $('#poste_select').append("<option value='" + obj.poste + "'>" + obj.poste + "</option>");
+    });
+}
+
+async function procedureChoixPoste() {
+    resetLocalPoste();
+    choixPoste();
 }

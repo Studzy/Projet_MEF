@@ -7,15 +7,15 @@ require('bdd.php');
 	$bdd = connectBase();
 	$idposte = $_GET['id'];
 
-	$req = $bdd->query("SELECT `controles`.`id`, `timestamp`, `user_name`, `poste`, `reference`, `resultat` FROM meffer.controles
+	$req = $bdd->query("SELECT `timestamp`, `user_name`, `poste`, `reference`, `resultat` FROM meffer.controles
 						INNER JOIN `references` 
 						ON `controles`.`ref_id` = `references`.`id`
 						INNER JOIN `postes` 
 						ON `controles`.`poste_id` = `postes`.`id`
 						INNER JOIN `controleurs` 
 						ON `controles`.`user_id` = `controleurs`.`id` where `controles`.`poste_id` = '$idposte'
-						ORDER BY `id`
-						DESC LIMIT 10");
+						ORDER BY `timestamp`
+						DESC LIMIT 15");
 
 	while($ligne = $req->fetch(PDO::FETCH_ASSOC)) 
 	{

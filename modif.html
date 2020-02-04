@@ -5,136 +5,12 @@
     <meta charset="UTF-8">
     <script src="js/Jquery/jquery-3.4.1.min.js"></script>
     <script src="js/bootstrap/bootstrap.min.js"></script>
+    <script src="js/modif.js"></script>
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="css/custom.css">
     <script>
-        let postes = [{}];
-        let references = [{}];
-        let posteSelect = "";
-        let idReference = "";
-        let posteAvant = "";
-        let posteAprès = "";
-        let referenceDeplacer = "";
-        let uneReference = [{}];
-        async function lirePostes() {
-            try {
-                //let req = await fetch(Chemin + '/postes.php');
-                let req = await fetch('postes.php');
-                //let req = ('D:\Users\jerem\Documents\Travail\Projet\PDS MEF Ferrage\meffer\postes.php');
-                let json = await req.json();
-                if (json.length) {
-                    postes = json;
-                    ToutADefaut();
-                    remplirListeDeroulantePoste();
-                }
-
-            } catch (err) {
-                console.log(err);
-            }
-        }
-
-        async function Test() {
-            
-            var select = document.getElementById('poste_select');
-            var choice = select.selectedIndex;
-            posteAvant = select.options[choice].value;
-            select = document.getElementById('poste_select_dest');
-            choice = select.selectedIndex;
-            posteAprès = select.options[choice].value;
-            select = document.getElementById('ref_select');
-            choice = select.selectedIndex;
-            referenceDeplacer = select.options[choice].value;
-            alert("poste avant : " + posteAvant + "/ poste apres : " + posteAprès + "/ ref a deplacer : " +referenceDeplacer);
-        }
-
-        async function modifEmplacementRef() {
-            var select = document.getElementById('poste_select');
-            var choice = select.selectedIndex;
-            posteAvant = select.options[choice].value;
-            select = document.getElementById('poste_select_dest');
-            choice = select.selectedIndex;
-            posteAprès = select.options[choice].value;
-            select = document.getElementById('ref_select');
-            choice = select.selectedIndex;
-            referenceDeplacer = select.options[choice].value;
-            //alert("poste avant : " + posteAvant + "/ poste apres : " + posteAprès + "/ ref a deplacer : " +referenceDeplacer);
-            $.ajax({
-                type: 'POST',
-                url: 'modif.php',
-                data: { "id": referenceDeplacer, "posteDest": posteAprès},
-                success: function (data) {
-                    if (data.status = "ok") {
-                        $("#success").show().delay(2000).fadeOut();
-                        alert("La modification a été enregistrer !");
-                        lirePostes();
-                        //recupererDerniersCtrl();
-                    } else {
-                        $("echec").show().delay(2000).fadeOut();
-                        alert("Echec de la modification !");
-                        //recupererDerniersCtrl();
-                    }
-                }
-                
-            });
-        }
-
-        async function lireRefs() {
-            var select = document.getElementById('poste_select');
-            var choice = select.selectedIndex;
-            posteSelect = select.options[choice].value;
-            try {
-                let req = await fetch('references.php?id=' + posteSelect);
-                //let req = (Chemin + '/references.php?id=' + posteEnCours);
-                let json = await req.json();
-                if (json.length) {
-                    references = json;
-                    remplirListeDeroulanteReference();
-                    //remplirRefs();
-                }
-                else {
-                    listeDeroulanteDefaut();
-                }
-            } catch (err) {
-                console.log(err);
-            }
-        }
-
-
-        function remplirListeDeroulantePoste() {
-            //$("#poste_select").html('');
-            $.each(postes, function (i, obj) {
-                console.log(obj.id + ' ' + obj.poste);
-                $('#poste_select').append("<option value='" + obj.id + "'>" + obj.id + "</option>");
-                $('#poste_select_dest').append("<option value='" + obj.id + "'>" + obj.id + "</option>");
-            });
-        }
-
-        function remplirListeDeroulanteReference() {
-            $("#ref_select").html('');
-            //<option value="null">--Choisir une référence--</option>
-            $('#ref_select').append("<option value='null'>--Choisir une référence--</option>");
-            $.each(references, function (i, obj) {
-                console.log(obj.id + ' ' + obj.reference);
-                $('#ref_select').append("<option value='" + obj.id + "'>" + obj.reference + "</option>");
-            });
-        }
-        function listeDeroulanteDefaut() {
-            $("#ref_select").html('');
-            //<option value="null">--Choisir une référence--</option>
-            $('#ref_select').append("<option value='null'>--Choisir une référence--</option>");
-        }
-
-        function ToutADefaut(){
-            $("#ref_select").html('');
-            $('#ref_select').append("<option value='null'>--Choisir une référence--</option>");
-            $("#poste_select_dest").html('');
-            $('#poste_select_dest').append("<option value='null'>--Choisir un poste--</option>");
-            $("#poste_select").html('');
-            $('#poste_select').append("<option value='null'>--Choisir un poste--</option>");
-            
-        }
-
         window.onload = lirePostes;
+        //lirePostes();
     </script>
     <title>Modification</title>
 
@@ -144,18 +20,14 @@
     <header>
         <nav class="navbar navbar-expand-sm bg-dark">
             <img width="7.5%" height="7.5%" src="img/home.png">
-            <a class="navbar-brand font-weight-bold" style="color : white !important" href="/">Ferrage</a>
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
-                aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+            <a class="navbar-brand font-weight-bold" style="color : white !important" href="modif.html">Ferrage</a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse menu-texte" id="navbarSupportedContent">
                 <ul class="navbar-nav mr-auto">
                     <li class="nav-item active">
-                        <a class="nav-link" href="/">Accueil <span class="sr-only">(current)</span></a>
-                    </li>
-                    <li class="nav-item active">
-                        <a class="nav-link" href="logs.html">Journaux<span class="sr-only"></span></a>
+                        <a class="nav-link" href="modif.html">Modification <span class="sr-only">(current)</span></a>
                     </li>
                 </ul>
                 <ul class="nav navbar-nav navbar-right">
@@ -176,38 +48,40 @@
             <h4 class="alert-heading">Echec</h4>
             <p class="mb-0">Erreur lors de l'écriture.</p>
         </div>
-        <div class="jumbotron">
+        <form>
+            <div class="jumbotron">
 
-            <!-- Attribut method : POST ou GET
-                     Attribut action : URL de traitement du formulaire (en PHP) -->
-            <h4>La pièce à déplacer :</h4>
-            <fieldset>
-                <label for="choixPoste">Poste :</label>
+                <!-- Attribut method : POST ou GET
+                         Attribut action : URL de traitement du formulaire (en PHP) -->
 
-                <select name="poste" id="poste_select" onchange='lireRefs()'>
-                    <option value="null">--Choisir un poste--</option>
-                </select>
-                <label for="choixRef">Référence :</label>
+                <fieldset>
+                    <h4>La pièce à déplacer :</h4>
+                    <label for="choixPoste">Poste :</label>
 
-                <select name="reference" id="ref_select">
-                    <option value="null">--Choisir une référence--</option>
-                </select>
-            </fieldset>
-            <h4>Emplacement de destination :</h4>
-            <fieldset>
-                <label for="choixPoste">Poste :</label>
+                    <select name="poste" id="poste_select" onchange='lireRefs()' required>
+                        <option value=''>--Choisir un poste--</option>
+                    </select>
+                    <label for="choixRef">Référence :</label>
 
-                <select name="posteDest" id="poste_select_dest">
-                    <option value="null">--Choisir un poste--</option>
-                </select>
-            </fieldset>
-            <br />
-            <p>
-                <input type="submit" name="envoyer" onclick="modifEmplacementRef()" value="Effectuer la modification" />
-            </p>
-        </div>
+                    <select name="reference" id="ref_select" onchange="afficherUneReference()" required>
+                        <option value=''>--Choisir une référence--</option>
+                    </select>
+                    <ul class="" id="affichageReference">
 
+                    </ul>
+                    <h4>Emplacement de destination :</h4>
+                    <label for="choixPoste">Poste :</label>
 
+                    <select name="posteDest" id="poste_select_dest" required>
+                        <option value=''>--Choisir un poste--</option>
+                    </select>
+                    <br /><br />
+                    <button type="submit" onclick="modifEmplacementRef()" class="btn btn-default" style="border: solid 1px">Effectuer les modifications</button>
+
+                </fieldset>
+
+            </div>
+        </form>
 
         <div class="modal fade" id="choixcontrole" role="dialog">
             <div class="modal-dialog">
@@ -218,12 +92,10 @@
                     <div class="modal-body">
                         <div class="row col-sm-12 my-auto">
                             <div class="col-sm-6">
-                                <button id="ok" type="button" class="btn btn-lg btn-succes"
-                                    data-dismiss="modal">OK</button>
+                                <button id="ok" type="button" class="btn btn-lg btn-succes" data-dismiss="modal">OK</button>
                             </div>
                             <div class="col-sm-6">
-                                <button id="nok" type="button" class="btn btn-lg btn-danger"
-                                    data-dismiss="modal">NOK</button>
+                                <button id="nok" type="button" class="btn btn-lg btn-danger" data-dismiss="modal">NOK</button>
                             </div>
                         </div>
                     </div>
