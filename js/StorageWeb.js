@@ -22,6 +22,7 @@ function userConnecter() {
 //fonction qui modifie l'entete droit de connection pour le mode deconnecter
 function userDeconnecter() {
     sessionStorage.clear();
+
 }
 
 //Procedure de connection de l'utilisateur
@@ -38,6 +39,8 @@ if (!sessionStorage.getItem('userLocal')) {
     //alert('Deconnecter !')
     //$('#contenu').html('');
     //connectionUtilisateur();
+    $('#TitreConnection').html('');
+    $('#TitreConnection').append("<li class='nav-item active' ><a class='nav-link' href='index.html'>Se connecter</a></li>");
 
 } else {
     //setStyles();
