@@ -3,7 +3,7 @@
 -- https://www.phpmyadmin.net/
 --
 -- Hôte : 127.0.0.1:3306
--- Généré le :  lun. 03 fév. 2020 à 08:09
+-- Généré le :  mer. 05 fév. 2020 à 07:03
 -- Version du serveur :  5.7.23
 -- Version de PHP :  7.2.10
 
@@ -57,7 +57,7 @@ CREATE TABLE IF NOT EXISTS `controles` (
   KEY `poste_idfk_idx` (`poste_id`),
   KEY `ref_idfk_idx` (`ref_id`),
   KEY `usr_idfk_idfk` (`user_id`)
-) ENGINE=InnoDB AUTO_INCREMENT=159 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=160 DEFAULT CHARSET=utf8;
 
 -- --------------------------------------------------------
 
@@ -127,73 +127,34 @@ CREATE TABLE IF NOT EXISTS `references` (
   `poste_id` int(11) NOT NULL,
   `photo` blob,
   `designation` varchar(45) DEFAULT NULL,
-  `date_reference` date DEFAULT NULL,
+  `date_reference` tinyint(2) DEFAULT NULL,
   `adresse_photo` varchar(75) DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `poste_idfk_idx` (`poste_id`)
 ) ENGINE=InnoDB AUTO_INCREMENT=27 DEFAULT CHARSET=utf8;
 
--- --------------------------------------------------------
-
 --
--- Structure de la table `t_listemagytest`
+-- Déchargement des données de la table `references`
 --
 
-DROP TABLE IF EXISTS `t_listemagytest`;
-CREATE TABLE IF NOT EXISTS `t_listemagytest` (
-  `CodePersonnel` varchar(255) NOT NULL,
-  `Nom` varchar(255) DEFAULT NULL,
-  `NomNaissance` varchar(255) DEFAULT NULL,
-  `Prenom` varchar(255) DEFAULT NULL,
-  `User` varchar(255) DEFAULT NULL,
-  `Rue` varchar(255) DEFAULT NULL,
-  `CodePostal` varchar(255) DEFAULT NULL,
-  `Ville` varchar(255) DEFAULT NULL,
-  `Telephone` varchar(255) DEFAULT NULL,
-  `DateNaissance` date DEFAULT NULL,
-  `DateEmbauche` date DEFAULT NULL,
-  `Poste` varchar(255) DEFAULT NULL,
-  `PosteAtelier` varchar(255) DEFAULT NULL,
-  `AgentRelation` varchar(255) DEFAULT NULL,
-  `CategorieProfessionnel` varchar(255) DEFAULT NULL,
-  `Coefficient` varchar(255) DEFAULT NULL,
-  `Classification` tinytext,
-  `NumeroSecuriteSocial` varchar(255) DEFAULT NULL,
-  `TypeContrat` tinytext,
-  `NatureContrat` tinytext,
-  `LieuNaissance` varchar(255) DEFAULT NULL,
-  `Nationalite` tinytext,
-  `NomConjoint` varchar(255) DEFAULT NULL,
-  `PrenomConjoint` varchar(255) DEFAULT NULL,
-  `DateNaissanceConjoint` date DEFAULT NULL,
-  `ConjointSalarieCPM` tinyint(1) DEFAULT '0',
-  `CodePersonnelConjoint` varchar(255) DEFAULT NULL,
-  `DateUnionConjoint` date DEFAULT NULL,
-  `DateDecesConjoint` date DEFAULT NULL,
-  `TypeHoraire` tinytext,
-  `Affectation` varchar(255) DEFAULT NULL,
-  `SituationMatrimoniale` varchar(255) DEFAULT NULL,
-  `DateSituationMatrimoniale` date DEFAULT NULL,
-  `NonMagy` tinyint(1) DEFAULT '0',
-  `ClientPresent` tinyint(1) DEFAULT '0',
-  `Invalidite` tinyint(1) DEFAULT '0',
-  `Deces` tinyint(1) DEFAULT '0',
-  `LongueMaladie` tinyint(1) DEFAULT '0',
-  `DateRadiation` date DEFAULT NULL,
-  `MotifRadiation` tinytext,
-  `DebutDerniereMutuelle` date DEFAULT NULL,
-  `FinDerniereMutuelle` date DEFAULT NULL,
-  `CodeOptionMutuelle` varchar(255) DEFAULT NULL,
-  `Changement` tinyint(1) DEFAULT '0',
-  `Archiver` tinyint(1) DEFAULT '0',
-  `dateEquivalence` date DEFAULT NULL,
-  `toubib` tinytext,
-  `UO` varchar(255) DEFAULT NULL,
-  `SPU` varchar(255) DEFAULT NULL,
-  `SPU_R` varchar(255) DEFAULT NULL,
-  PRIMARY KEY (`CodePersonnel`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+INSERT INTO `references` (`id`, `reference`, `poste_id`, `photo`, `designation`, `date_reference`, `adresse_photo`) VALUES
+(9, '98.098.400.80', 3, NULL, 'VIS M6 X L20', NULL, 'images/References/98_098_400_80.png'),
+(10, '96.832.120.80', 3, NULL, 'OBTURATEUR D30 BI-MAT', NULL, 'images/References/96_832_120_80.png'),
+(11, '79.030.082.35', 3, NULL, 'VIS TORX', NULL, 'images/References/79_030_082_35.png'),
+(12, '98.019.893.80', 3, NULL, 'ECROU A SERTIR', NULL, 'images/References/98_019_893_80.png'),
+(13, '98.201.642.80', 3, NULL, 'ECROU A SERTIR', NULL, 'images/References/98_201_642_80.png'),
+(14, '96.802.153.80', 3, NULL, 'OBTURATEUR', NULL, 'images/References/96_802_153_80.png'),
+(15, '96.745.506.80', 3, NULL, 'VIS M8 X L30', NULL, 'images/References/96_745_506_80.png'),
+(16, '98.098.400.80', 4, NULL, 'VIS M6 X L20', NULL, 'images/References/98_098_400_80.png'),
+(17, '98.117.530.80', 4, NULL, 'VIS M8 X L24', NULL, 'images/References/98_117_530_80.png'),
+(18, '96.478.684.80', 4, NULL, 'FILM ADHESIF', 1, 'images/References/96_478_684_80.png'),
+(19, '96.370.064.80', 4, NULL, 'VIS M6 X L30', NULL, 'images/References/96_370_064_80.png'),
+(20, '96.559.100.80', 4, NULL, 'ECROU A SERTIR', NULL, 'images/References/96_559_100_80.png'),
+(21, '79.033.011.77', 4, NULL, 'VIS M8 X L20', NULL, 'images/References/79_033_011_77.png'),
+(22, '98.273.999.80', 4, NULL, 'SERTIS M4 X L12', NULL, 'images/References/98_273_999_80.png'),
+(23, '79.030.082.35', 4, NULL, 'VIS TORX', NULL, 'images/References/79_030_082_35.png'),
+(25, '98.030.000.80', 4, NULL, 'ECROU A SERTIR', NULL, 'images/References/98_030_000_80.png');
 
 --
 -- Contraintes pour les tables déchargées
