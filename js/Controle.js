@@ -434,7 +434,6 @@ function procedureEnvoi() {
 
 function connectionUser() {
     utilisateurConnecter = recupererNomOperateur();
-
 }
 
 $(document).ready(function() {
