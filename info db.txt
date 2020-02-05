@@ -2,3 +2,7 @@ remoteadmin
 QmViZXIgaWwgZW5jdWxlIHNvbiBjaGllbiB0b3V0IGxlcyBzb2lycyBlbiBidXZhbnQgZGVzIGhlY3RvbGl0cmVzIGRlIHBhc3RpcyB0cm9wIGRpbHXDqSBkZXZhbnQgc2EgY2hlbWluw6llIHBlbmRhbnQgbGVzIGbDqnRlcyBkZSBub2VsLg==
 
 (base64 : Beber il encule son chien tout les soirs en buvant des hectolitres de pastis trop dilué devant sa cheminée pendant les fêtes de noel.)
+
+3306
+
+meffer_admin

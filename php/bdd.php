@@ -3,7 +3,7 @@
 $hostname = "MySql";
 $port="3306";
 $dbname = "meffer";
-//$user = "remoteadmin";
+//$user = "meffer_admin";
 //$pass = "QmViZXIgaWwgZW5jdWxlIHNvbiBjaGllbiB0b3V0IGxlcyBzb2lycyBlbiBidXZhbnQgZGVzIGhlY3RvbGl0cmVzIGRlIHBhc3RpcyB0cm9wIGRpbHXDqSBkZXZhbnQgc2EgY2hlbWluw6llIHBlbmRhbnQgbGVzIGbDqnRlcyBkZSBub2VsLg==";
 $user = "root";
 $pass = "";

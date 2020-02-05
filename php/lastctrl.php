@@ -11,9 +11,7 @@ require('bdd.php');
 						INNER JOIN `references` 
 						ON `controles`.`ref_id` = `references`.`id`
 						INNER JOIN `postes` 
-						ON `controles`.`poste_id` = `postes`.`id`
-						INNER JOIN `controleurs` 
-						ON `controles`.`user_id` = `controleurs`.`id` where `controles`.`poste_id` = '$idposte'
+						ON `controles`.`poste_id` = `postes`.`id` where `controles`.`poste_id` = '$idposte'
 						ORDER BY `timestamp`
 						DESC LIMIT 15");
 
