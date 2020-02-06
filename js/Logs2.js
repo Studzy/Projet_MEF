@@ -8,11 +8,10 @@ let posteEnCours = "";
 let refEnCours = "";
 let identifiant = "1";
 
+//Procédure qui recupère les postes grâce a une requete php et qui avec la fonction "remplirTableau()" affiche les poste sur la page
 async function lirePostes() {
     try {
-        //let req = await fetch(Chemin + '/postes.php');
         let req = await fetch('php/postes.php');
-        //let req = ('D:\Users\jerem\Documents\Travail\Projet\PDS MEF Ferrage\meffer\postes.php');
         let json = await req.json();
         if (json.length) {
             postes = json;
@@ -23,10 +22,13 @@ async function lirePostes() {
         console.log(err);
     }
 }
+
 async function procedureChoixPoste() {
     resetLocalPoste();
     choixPoste();
 }
+
+//Utilise une requete php pour recuperer les refrences en BDD et avec la fonction "remplirRefs()" affiche les references sur la page
 async function lireRefs() {
     try {
         let req = await fetch('php/references.php?id=' + posteEnCours);
@@ -41,6 +43,7 @@ async function lireRefs() {
     }
 }
 
+//Recupère grâce a une requete php les 15 derniers controles effectuer et avec la fonction "remplirDerniersCtrl()" les affiches sur la page
 async function recupererDerniersCtrl() {
     try {
         let req = await fetch('php/lastctrl.php?id=' + posteEnCours);
@@ -55,6 +58,7 @@ async function recupererDerniersCtrl() {
     }
 }
 
+//Procédure qui permet d'afficher les references sur la page
 function choixRef(r) {
     $.each(references, function(i, obj) {
         console.log(obj.id + ' ' + obj.reference);
@@ -63,28 +67,6 @@ function choixRef(r) {
     $("#piece" + r).addClass("active");
     refEnCours = r;
 }
-/*
-function remplirDerniersCtrl() {
-    let tableau = $('#tab_ctrl > tbody');
-    tableau.html('');
-    controles.map(controles => {
-        tableau.append('<tr>');
-        for (let prop in controles) {
-            if (controles.hasOwnProperty(prop)) {
-                if (controles[prop]) {
-                    if (controles[prop] == 1) {
-                        tableau.find('tr').last().append('<td>OK</td>');
-                    } else {
-                        tableau.find('tr').last().append('<td>' + controles[prop] + '</td>');
-                    }
-                } else {
-                    tableau.find('tr').last().append('<td>NOK</td>');
-                }
-            }
-
-        }
-    });
-}*/
 
 //Fonction qui va afficher les derniers controles sur la page
 function remplirDerniersCtrl() {
@@ -109,6 +91,8 @@ function remplirDerniersCtrl() {
     });
 }
 
+//Procédure qui va afficher dynamiquement les references sur la page à la suite de l'ID "listerefs"
+
 function remplirRefs() {
     $("#listerefs").html('');
     $.each(references, function(i, obj) {
@@ -118,6 +102,7 @@ function remplirRefs() {
     recupererDerniersCtrl();
 }
 
+//Procédure qui après la selection du poste va afficher les references
 function choixPoste(p) {
     posteEnCours = postes[p].id
     $("#content").html('');
@@ -175,6 +160,7 @@ $(document).ready(function() {
     });
 });
 
+//Procédure qui affiche les derniers controles
 function remplirLogs(log) {
     let tableau = $('#tab_logs > tbody');
     tableau.html('');

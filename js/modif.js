@@ -6,11 +6,11 @@ let posteAvant = "";
 let posteAprès = "";
 let referenceDeplacer = "";
 let uneReference = [{}];
+
+//Procedure qui recupère les postes grâce a une requete php et qui va initialiser les liste deroulante
 async function lirePostes() {
     try {
-        //let req = await fetch(Chemin + '/postes.php');
         let req = await fetch('php/postes.php');
-        //let req = ('D:\Users\jerem\Documents\Travail\Projet\PDS MEF Ferrage\meffer\postes.php');
         let json = await req.json();
         if (json.length) {
             postes = json;
@@ -23,20 +23,7 @@ async function lirePostes() {
     }
 }
 
-async function Test() {
-
-    var select = document.getElementById('poste_select');
-    var choice = select.selectedIndex;
-    posteAvant = select.options[choice].value;
-    select = document.getElementById('poste_select_dest');
-    choice = select.selectedIndex;
-    posteAprès = select.options[choice].value;
-    select = document.getElementById('ref_select');
-    choice = select.selectedIndex;
-    referenceDeplacer = select.options[choice].value;
-    alert("poste avant : " + posteAvant + "/ poste apres : " + posteAprès + "/ ref a deplacer : " + referenceDeplacer);
-}
-
+//Procedure qui va effectuer la modification auprès de la BDD 
 async function modifEmplacementRef() {
     var select = document.getElementById('poste_select');
     var choice = select.selectedIndex;
@@ -47,10 +34,7 @@ async function modifEmplacementRef() {
     select = document.getElementById('ref_select');
     choice = select.selectedIndex;
     referenceDeplacer = select.options[choice].value;
-    //alert("poste avant : " + posteAvant + " poste apres : " + posteAprès + " ref a deplacer : " + referenceDeplacer);
-    //console.log('1');
     if (posteAprès != "" && posteAvant != "" && referenceDeplacer != "") {
-        //console.log('2');
         $.ajax({
             type: 'POST',
             url: 'php/modif.php',
@@ -59,21 +43,11 @@ async function modifEmplacementRef() {
                 "posteDest": posteAprès
             },
             success: function(data) {
-                //console.log('3');
                 if (data.status = "ok") {
-                    //console.log('4');
                     $("#success").show().delay(2000).fadeOut();
-                    //alert("La modification a été enregistrer !");
-                    //console.log('5');
                     lirePostes();
-                    //console.log('6');
-                    //recupererDerniersCtrl();
                 } else {
-                    //console.log('7');
                     $("#echec").show().delay(2000).fadeOut();
-                    //alert("Echec de la modification !");
-                    //console.log('8');
-                    //recupererDerniersCtrl();
                 }
             }
 
@@ -84,6 +58,7 @@ async function modifEmplacementRef() {
 
 }
 
+//Procédure qui va afficher la photo de la reference selectionner 
 function afficherUneReference() {
     var i = document.getElementById('ref_select').selectedIndex;
     i = i - 1;
@@ -92,18 +67,17 @@ function afficherUneReference() {
     $('#affichageReference').append("<li class='list-group-item' style='max-width:15%;'><figure class='figure'><img class='figure-img img-fluid rounded img-reference' style='display: block;'  width='125%' height='125%' src=" + references[i]['adresse_photo'] + "><figcaption class='figure-caption' style='font-size : 150%; font-weight: bold;text-align:center;'>" + references[i]['reference'] + "</figcaption></figure></li>");
 }
 
+//Procédure qui va recuperer les references en fonction du poste selectionner et les ajouter dans la liste déroulante
 async function lireRefs() {
     var select = document.getElementById('poste_select');
     var choice = select.selectedIndex;
     posteSelect = select.options[choice].value;
     try {
         let req = await fetch('php/references.php?id=' + posteSelect);
-        //let req = (Chemin + '/references.php?id=' + posteEnCours);
         let json = await req.json();
         if (json.length) {
             references = json;
             remplirListeDeroulanteReference();
-            //remplirRefs();
         } else {
             listeDeroulanteDefaut();
         }
@@ -113,9 +87,8 @@ async function lireRefs() {
     $('#affichageReference').html('');
 }
 
-
+//Procédure qui permet de remplir la liste deroulante avec les postes
 function remplirListeDeroulantePoste() {
-    //$("#poste_select").html('');
     $.each(postes, function(i, obj) {
         console.log(obj.id + ' ' + obj.poste);
         $('#poste_select').append("<option value='" + obj.id + "'>" + obj.id + "</option>");
@@ -123,9 +96,9 @@ function remplirListeDeroulantePoste() {
     });
 }
 
+//Procédure qui permet de remplir la liste deroulante avec les references
 function remplirListeDeroulanteReference() {
     $("#ref_select").html('');
-    //<option value="null">--Choisir une référence--</option>
     $('#ref_select').append("<option value=''>--Choisir une référence--</option>");
     $.each(references, function(i, obj) {
         console.log(obj.id + ' ' + obj.reference);
@@ -133,12 +106,13 @@ function remplirListeDeroulanteReference() {
     });
 }
 
+//Procédure qui va vider la liste déroulante référence
 function listeDeroulanteDefaut() {
     $("#ref_select").html('');
-    //<option value="null">--Choisir une référence--</option>
     $('#ref_select').append("<option value=''>--Choisir une référence--</option>");
 }
 
+//Procédure qui va vider les 3 listes déroulante
 function ToutADefaut() {
     $("#ref_select").html('');
     $('#ref_select').append("<option value=''>--Choisir une référence--</option>");

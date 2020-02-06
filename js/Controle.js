@@ -14,12 +14,10 @@ let dateTempo = "";
 let dateEnCours = "";
 
 
-//Fonction qui recupère les postes grâce a une requete php et qui avec la fonction "remplirTableau()" affiche les poste sur la page
+//Procédure qui recupère les postes grâce a une requete php et qui avec la fonction "remplirTableau()" affiche les poste sur la page
 async function lirePostes() {
     try {
-        //let req = await fetch(Chemin + '/postes.php');
         let req = await fetch('php/postes.php');
-        //let req = ('D:\Users\jerem\Documents\Travail\Projet\PDS MEF Ferrage\meffer\postes.php');
         let json = await req.json();
         if (json.length) {
             postes = json;
@@ -36,7 +34,6 @@ async function lirePostes() {
 async function lireRefs() {
     try {
         let req = await fetch('php/references.php?id=' + posteEnCours);
-        //let req = (Chemin + '/references.php?id=' + posteEnCours);
         let json = await req.json();
         if (json.length) {
             references = json;
@@ -47,11 +44,10 @@ async function lireRefs() {
     }
 }
 
-//Recupère grâce a une requete php les 10 derniers controles effectuer et avec la fonction "remplirDerniersCtrl()" les affiches sur la page
+//Recupère grâce a une requete php les 15 derniers controles effectuer et avec la fonction "remplirDerniersCtrl()" les affiches sur la page
 async function recupererDerniersCtrl() {
     try {
         let req = await fetch('php/lastctrl.php?id=' + posteEnCours);
-        //let req = await (Chemin + '/references.php?id=' + posteEnCours);
         let json = await req.json();
         if (json.length) {
             controles = json;
@@ -62,7 +58,7 @@ async function recupererDerniersCtrl() {
     }
 }
 
-//Fonction qui permet d'afficher les references sur la page et si il y a une date a verifier dans la base de données, elle va ajouter un nouveau block dans le modal pour demander a l'utilisateur de verifier la date
+//Procédure qui permet d'afficher les references sur la page et si il y a une date a verifier dans la base de données, elle va ajouter un nouveau block dans le modal pour demander a l'utilisateur de verifier la date
 function choixRef(r, i) {
 
     $.each(references, function(i, obj) {
@@ -70,7 +66,6 @@ function choixRef(r, i) {
         $('#piece' + (obj.id)).removeClass("active");
     });
     $("#piece" + r).addClass("active");
-    //resetButtonColor();
     $("#NumRef").html("");
     $('#NumRef').append('<p>Référence : ' + references[i]['reference'] + '</p>');
     refEnCours = r;
@@ -80,10 +75,7 @@ function choixRef(r, i) {
     var BtnOK = "\"BtnDateOK\"";
     var BtnNOK = "\"BtnDateNOK\"";
     elementUser.value = result;
-    //alert('geUserName');
     if (dateTempo == 1) {
-        //var date = dateTempo.split('-');
-        //dateEnCours = date[2] + '/' + date[1] + '/' + date[0];
         $("#ajoutDate").html('');
         $("#ajoutDate").append("<p>Date limite d'utilisation : </p><div class='row col-sm-12 my-auto'><div class='col-sm-6'><button name='' id='BtnDateOK' type='button' onclick='changeColor(" + BtnOK + ")' class='btn btn-lg btn-succes' style='font-size: 200%;' data-dismiss=''>OK</button></div><div class='col-sm-6'><button name='' id='BtnDateNOK' type='button' onclick='changeColor(" + BtnNOK + ")' class='btn btn-lg' style='font-size: 200%;' data-dismiss=''>NOK</button></div></div>");
     } else {
@@ -92,7 +84,7 @@ function choixRef(r, i) {
 
 }
 
-//Fonction qui va afficher les derniers controles sur la page
+//Procédure qui va afficher les derniers controles sur la page
 function remplirDerniersCtrl() {
     let tableau = $('#tab_ctrl > tbody');
     tableau.html('');
@@ -116,34 +108,29 @@ function remplirDerniersCtrl() {
 }
 
 
-//Fonction qui va afficher dynamiquement les references sur la page à la suite de l'ID "listerefs"
+//Procédure qui va afficher dynamiquement les references sur la page à la suite de l'ID "listerefs"
 function remplirRefs() {
     $("#listerefs").html('');
     $.each(references, function(i, obj) {
         console.log(obj.id + ' ' + obj.reference);
-        //$('#listerefs').append("<li data-toggle='modal' data-target='#choixcontrole' id='piece" + obj.id + "' onclick='choixRef(" + obj.id + ")' class='list-group-item'><figure class='figure'><img class='figure-img img-fluid rounded'  width='' height='' src="+ obj.adresse_photo +"><figcaption class='figure-caption'>" + obj.reference + "</figcaption></figure></li>");
         $('#listerefs').append("<li data-toggle='modal' data-target='#choixcontrole' id='piece" + obj.id + "' onclick='choixRef(" + obj.id + "," + i + ")' class='list-group-item'><figure class='figure'><img class='figure-img img-fluid rounded img-reference' style='display: block; margin-left: auto; margin-right: auto;'  width='75%' height='80%' src=" + obj.adresse_photo + "><figcaption class='figure-caption' style='font-size : 325%; font-weight: bold; text-align: center;'>" + obj.reference + "</figcaption></figure></li>");
     });
     recupererDerniersCtrl();
 }
 
-//Fonction qui après la selection du poste va afficher les references
-//function choixPoste(p) {
+//Procédure qui après la selection du poste va afficher les references
 function choixPoste() {
-    //posteEnCours = postes[p].id
     $("#content").html('');
-    //$("#poste").html(postes[p].poste);
-    $("#poste").html(sessionStorage.getItem('posteLocal'));
+    $("#poste").html(sessionStorage.getItem('posteIdLocal'));
     $("#content").append("<div class='col-sm-6' id='derniersCtrl'></div><div class='col-sm-6' id='choixpieces'></div>");
     $("#choixpieces").append("<h3 class='text-center display-5'>Choisissez la référence</h3><br />");
-    //$("#choixpieces").append("<ul id='listerefs' class='list-group list-group-horizontal justify-content-center'></ul>");
     $("#choixpieces").append("<ul id='listerefs' class='' width='50%'></ul>");
     $("#derniersCtrl").append("<table id='tab_ctrl' class='table table-responsive-md table-striped table-bordered table-active text-center'></table>");
     $("#tab_ctrl").append("<thead><tr><th>Date/heure</th><th>Nom</th><th>Poste</th><th>Référence</th></th><th>Etat</th></tr></thead><tbody></tbody>");
     lireRefs();
 }
 
-//Fonction qui affiche les differents postes sous forme de tableau 
+//Procédure qui affiche les differents postes sous forme de tableau 
 function remplirTableau() {
     $("#listepostes").html('');
     $.each(postes, function(i, obj) {
@@ -184,17 +171,9 @@ function recupererNomOperateur() {
     return resultNom
 }
 
-function Result() {
-
-}
-
-function afficheResult() {
-    alert(recupererNomOperateur());
-}
 
 //Fonction qui change la couleur des boutons dans le formulaire modal en fonction du bouton selectionner
 function changeColor(NomBouton) {
-    //if (document.frm.button1.style.background = 'blue') { document.frm.button1.style.background = 'red'; }
     if (NomBouton == "BtnQualityOK") {
         BtnQualityOK.style.backgroundColor = 'green';
         BtnQualityOK.style.color = 'white';
@@ -237,7 +216,6 @@ function changeColor(NomBouton) {
         BtnDateNOK.style.color = 'white';
         VerifDate = "NOK";
     }
-    //BtnQualityOK.style.backgroundColor = 'blue'
 }
 
 //Redefinis la couleur des boutons du formulaire modal
@@ -251,33 +229,7 @@ function resetButtonColor() {
     BtnRefOK.style.color = 'black';
     BtnRefNOK.style.color = 'black';
     $("#ajoutDate").html('');
-    /*BtnDateOK.style.color = 'pink';
-    BtnDateNOK.style.color = 'pink';
-    BtnDateOK.style.backgroundColor = 'brown';
-    BtnDateNOK.style.backgroundColor = 'brown';*/
-    //alert('test');
-    /*
-    $("#BoutonsQuality").html('');
-    $("#BoutonsQuality").append("<p>Qualité de la pièce : </p><div class='row col-sm-12 my-auto'><div class='col-sm-6'><button name='' id='BtnQualityOK' type='button' onclick='changeColor(" + BtnOK + ")' class='btn btn-lg btn-succes' style='font-size: 200%;' data-dismiss=''>OK</button></div><div class='col-sm-6'><button name='' id='BtnQualityNOK' type='button' onclick='changeColor(" + BtnNOK + ")' class='btn btn-lg' style='font-size: 200%;' data-dismiss=''>NOK</button></div></div>");
-    */
 
-}
-
-
-function testEnvoiPhoto() {
-    $.ajax({
-        type: 'POST',
-        url: 'php/addPhoto.php',
-        success: function(data) {
-            if (data.status = "ok") {
-                $("#success").show().delay(2000).fadeOut();
-                recupererDerniersCtrl();
-            } else {
-                $("echec").show().delay(2000).fadeOut();
-                recupererDerniersCtrl();
-            }
-        }
-    });
 }
 
 // Procedure qui envoie les nouvelles infos a la BDD sans la verification de la date 
@@ -348,10 +300,9 @@ function envoiSansDate() {
     VerifQuality = "";
     VerifReference = "";
     resetButtonColor();
-    //lirePostes();
 }
 
-// Procedure qui envoie les nouvelles infos a la BDD avec la verification de la date 
+// Procedure qui envoie les nouvelles infos a la BDD, si les champs ne sont pas vide avec la verification de la date 
 function envoiAvecDate() {
     NomOperateur = recupererNomOperateur();
     if (NomOperateur != "") {
@@ -419,10 +370,9 @@ function envoiAvecDate() {
     VerifQuality = "";
     VerifReference = "";
     resetButtonColor();
-    //lirePostes();
 }
 
-
+//procedure qui lance la fonction "envoiAvecDate" si la date est présente et "envoiSansDate" dans l'autre cas
 function procedureEnvoi() {
     if (dateEnCours != "") {
         envoiAvecDate();
@@ -431,15 +381,14 @@ function procedureEnvoi() {
     }
 }
 
-
+//Recuperer le nom utilisateur
 function connectionUser() {
     utilisateurConnecter = recupererNomOperateur();
 }
 
 $(document).ready(function() {
-    let recupPoste = sessionStorage.getItem('posteLocal');
-    posteEnCours = recupPoste.replace("Poste", "");
-    //alert(posteEnCours);
+    let recupPoste = sessionStorage.getItem('posteIdLocal');
+    posteEnCours = recupPoste;
     $('#choixcontrole').on('hidden.bs.modal', function() {
         $.each(references, function(i, obj) {
             console.log(obj.id + ' ' + obj.reference);
@@ -495,38 +444,15 @@ $(document).ready(function() {
         });
         recupererDerniersCtrl();
     });
-    //lirePostes();
-    //lireRefs();
     choixPoste();
 
 
 });
 
-//window.location.assign("http://localhost/Projet_MEF/controle.html");
-/*if (!sessionStorage.getItem('userLocal')) {
-    //populateStorage();
-    //userDeconnecter();
-    //alert('Deconnecter !')
-    //$('#contenu').html('');
-    //connectionUtilisateur();
-
-} else {
-    //setStyles();
-    //connectionUtilisateur();
-    $('#nom_operateur').html('');
-    userConnecter();
-    //alert('Connecté ! ' + sessionStorage.getItem('userLocal'));
-}
-//fonction qui modifie l'entete droit de connection pour le mode deconnecter
-/*function userDeconnecter() {
-    sessionStorage.clear();
-}*/
-
-
+//Recupère le nom utilisateur dans le sessionStorage et l'affiche dans le modal
 function getUserName() {
     var result = sessionStorage.getItem('userLocal');
     var elementUser = document.getElementById("nom_operateur");
     elementUser.value = result;
-    //alert('geUserName');
 
 }
