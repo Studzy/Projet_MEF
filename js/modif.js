@@ -91,8 +91,8 @@ async function lireRefs() {
 function remplirListeDeroulantePoste() {
     $.each(postes, function(i, obj) {
         console.log(obj.id + ' ' + obj.poste);
-        $('#poste_select').append("<option value='" + obj.id + "'>" + obj.id + "</option>");
-        $('#poste_select_dest').append("<option value='" + obj.id + "'>" + obj.id + "</option>");
+        $('#poste_select').append("<option value='" + obj.id + "'>" + obj.poste + "</option>");
+        $('#poste_select_dest').append("<option value='" + obj.id + "'>" + obj.poste + "</option>");
     });
 }
 
