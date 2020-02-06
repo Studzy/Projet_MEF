@@ -10,7 +10,7 @@ function userConnecter() {
     var userConnecter = sessionStorage.getItem('userLocal');
     var posteUser = sessionStorage.getItem('posteLocal');
     $('#TitreConnection').html('');
-    $('#TitreConnection').append("<li data-toggle='modal' onclick='lirePostesModal()' data-target='#choixposte' class='nav-item active' ><a class='nav-link'>" + posteUser + "<span class='sr-only'></span></a></li><li data-toggle='modal' data-target='#choixuser' class='nav-item active' ><a class='nav-link'>" + userConnecter + "<span class='sr-only'></span></a></li><li data-toggle='modal' data-target='#choixuser' class='nav-item active' style='width:50%;text-align:right;max-width:100px;' ><a class='nav-link' href='http://localhost/Projet_MEF/' onclick='userDeconnecter()'><span class='sr-only'></span><img id='sortie'class='' width='50%' height='50%'  style='' src='img/sortie.png'/></a></li>"); // ****** Chemin d'accès ******
+    $('#TitreConnection').append("<li data-toggle='modal' onclick='lirePostesModal()' data-target='#choixposte' class='nav-item active' ><a class='nav-link'>" + posteUser + "<span class='sr-only'></span></a></li><li data-toggle='modal' data-target='#choixuser' class='nav-item active' ><a class='nav-link'>" + userConnecter + "<span class='sr-only'></span></a></li><li data-toggle='modal' data-target='#choixuser' class='nav-item active' style='width:50%;text-align:right;max-width:100px;' ><a class='nav-link' href='index' onclick='userDeconnecter()'><span class='sr-only'></span><img id='sortie'class='' width='50%' height='50%'  style='' src='img/sortie.png'/></a></li>"); // ****** Chemin d'accès ******
 }
 
 //fonction qui modifie l'entete droit de connection pour le mode deconnecter
@@ -28,7 +28,7 @@ async function connectionUtilisateur() {
 //Procédure qui verifie que l'utilisateur est connecté dans le cas contraire affiche un bouton se connecter
 if (!sessionStorage.getItem('userLocal')) {
     $('#TitreConnection').html('');
-    $('#TitreConnection').append("<li class='nav-item active' ><a class='nav-link' href='http://localhost/Projet_MEF/'>Se connecter</a></li>");
+    $('#TitreConnection').append("<li class='nav-item active' ><a class='nav-link' href='index'>Se connecter</a></li>");
 
 } else {
     $('#nom_operateur').html('');

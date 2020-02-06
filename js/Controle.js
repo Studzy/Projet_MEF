@@ -76,6 +76,7 @@ function choixRef(r, i) {
     var BtnNOK = "\"BtnDateNOK\"";
     elementUser.value = result;
     if (dateTempo == 1) {
+        dateEnCours = "1";
         $("#ajoutDate").html('');
         $("#ajoutDate").append("<p>Date limite d'utilisation : </p><div class='row col-sm-12 my-auto'><div class='col-sm-6'><button name='' id='BtnDateOK' type='button' onclick='changeColor(" + BtnOK + ")' class='btn btn-lg btn-succes' style='font-size: 200%;' data-dismiss=''>OK</button></div><div class='col-sm-6'><button name='' id='BtnDateNOK' type='button' onclick='changeColor(" + BtnNOK + ")' class='btn btn-lg' style='font-size: 200%;' data-dismiss=''>NOK</button></div></div>");
     } else {
@@ -306,7 +307,7 @@ function envoiSansDate() {
 function envoiAvecDate() {
     NomOperateur = recupererNomOperateur();
     if (NomOperateur != "") {
-        if (VerifReference != "" && VerifQuality != "") {
+        if (VerifReference != "" && VerifQuality != "" && VerifDate != "") {
             if (VerifReference == "OK" && VerifQuality == "OK" && VerifDate == "OK") {
                 let res = 1;
                 NomOperateur = recupererNomOperateur();
