@@ -13,7 +13,7 @@ require('bdd.php');
 						INNER JOIN `postes` 
 						ON `controles`.`poste_id` = `postes`.`id` where `controles`.`poste_id` = '$idposte'
 						ORDER BY `timestamp`
-						DESC LIMIT 15");
+						DESC LIMIT 10");
 
 	while($ligne = $req->fetch(PDO::FETCH_ASSOC)) 
 	{

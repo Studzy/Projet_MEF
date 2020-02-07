@@ -123,10 +123,11 @@ function remplirRefs() {
 function choixPoste() {
     $("#content").html('');
     $("#poste").html(sessionStorage.getItem('posteIdLocal'));
-    $("#content").append("<div class='col-sm-6' id='derniersCtrl'></div><div class='col-sm-6' id='choixpieces'></div>");
+    $("#content").append("<div class='col-sm-6' id='derniersCtrl'><div id='BlocTab'></div></div><div class='col-sm-6' id='choixpieces'></div>");
     $("#choixpieces").append("<h3 class='text-center display-5'>Choisissez la référence</h3><br />");
     $("#choixpieces").append("<ul id='listerefs' class='' width='50%'></ul>");
-    $("#derniersCtrl").append("<table id='tab_ctrl' class='table table-responsive-md table-striped table-bordered table-active text-center'></table>");
+    $("#BlocTab").append("<h3 class='text-center display-5'>Derniers contrôles effectués</h3><br />");
+    $("#BlocTab").append("<table id='tab_ctrl' class='table table-responsive-md table-striped table-bordered table-active text-center'></table>");
     $("#tab_ctrl").append("<thead><tr><th>Date/heure</th><th>Nom</th><th>Poste</th><th>Référence</th></th><th>Etat</th></tr></thead><tbody></tbody>");
     lireRefs();
 }
@@ -457,3 +458,22 @@ function getUserName() {
     elementUser.value = result;
 
 }
+
+//Fixer le tableau de controles pendant le scroll
+
+var $tabCtrl = $("#tab_ctrl"),
+    $window = $(window),
+    offset = $tabCtrl.offset(),
+    topPadding = 15;
+
+$window.scroll(function() {
+    if ($window.scrollTop() > offset.top) {
+        $tabCtrl.stop().animate({
+            marginTop: $window.scrollTop() - offset.top + topPadding
+        });
+    } else {
+        $tabCtrl.stop().animate({
+            marginTop: 0
+        });
+    }
+});

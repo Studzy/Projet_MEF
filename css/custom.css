@@ -169,3 +169,17 @@ nav div ul.slices li {
     margin-right: 10px;
     float: right;
 }
+
+#derniersCtrl {
+    position: relative;
+}
+
+#BlocTab {
+    width: 45%;
+    position: fixed;
+    margin-left: 1%;
+}
+
+#titreDernCtrl {
+    position: fixed;
+}
