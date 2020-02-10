@@ -69,7 +69,7 @@ ul.list-group {
 main {
     overflow: auto;
     min-height: 75vh;
-    max-height: 75vh;
+    max-height: 85vh;
 }
 
 .commentaire {
@@ -180,6 +180,8 @@ nav div ul.slices li {
     margin-left: 1%;
 }
 
+
+/*
 #titreDernCtrl {
     position: fixed;
 }
@@ -192,4 +194,4 @@ nav div ul.slices li {
 
 .site-content {
     flex: 1;
-}
+}*/
