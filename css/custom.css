@@ -220,6 +220,26 @@ nav div ul.slices li {
     background-color: #e9ecef;
 }
 
+#BtnChangeUser {
+    border: solid;
+    background-color: #e9ecef;
+}
+
+#BtnCancel {
+    border: solid;
+    background-color: #e9ecef;
+}
+
+#BtnChangePoste {
+    border: solid;
+    background-color: #e9ecef;
+}
+
+#BtnCancel2 {
+    border: solid;
+    background-color: #e9ecef;
+}
+
 
 /*
 #titreDernCtrl {
