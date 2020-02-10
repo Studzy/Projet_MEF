@@ -468,12 +468,12 @@ function afficherBoutonValider() {
     if (dateEnCours == "1") {
         if (VerifReference != "" && VerifQuality != "" && VerifDate != "") {
             $("#BoutonValider").html('');
-            $("#BoutonValider").append("<button type='button' onclick='procedureEnvoi()' class='btn btn-default' data-dismiss='modal' style='font-size: 200%;'>Valider</button>");
+            $("#BoutonValider").append("<button type='button' id='BtnValider' onclick='procedureEnvoi()' class='btn btn-default' data-dismiss='modal' style='font-size: 200%;'>Valider</button>");
         }
     } else {
         if (VerifReference != "" && VerifQuality != "") {
             $("#BoutonValider").html('');
-            $("#BoutonValider").append("<button type='button' onclick='procedureEnvoi()' class='btn btn-default' data-dismiss='modal' style='font-size: 200%;'>Valider</button>");
+            $("#BoutonValider").append("<button type='button' id='BtnValider' onclick='procedureEnvoi()' class='btn btn-default' data-dismiss='modal' style='font-size: 200%;'>Valider</button>");
         }
     }
 }

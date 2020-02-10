@@ -180,6 +180,46 @@ nav div ul.slices li {
     margin-left: 1%;
 }
 
+#BtnQualityOK {
+    border: solid;
+    background-color: #e9ecef;
+}
+
+#BtnQualityNOK {
+    border: solid;
+    background-color: #e9ecef;
+}
+
+#BtnRefOK {
+    border: solid;
+    background-color: #e9ecef;
+}
+
+#BtnRefNOK {
+    border: solid;
+    background-color: #e9ecef;
+}
+
+#BtnDateOK {
+    border: solid;
+    background-color: #e9ecef;
+}
+
+#BtnDateNOK {
+    border: solid;
+    background-color: #e9ecef;
+}
+
+#BtnValider {
+    border: solid;
+    background-color: #e9ecef;
+}
+
+#BtnAnnuler {
+    border: solid;
+    background-color: #e9ecef;
+}
+
 
 /*
 #titreDernCtrl {
