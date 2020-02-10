@@ -218,20 +218,28 @@ function changeColor(NomBouton) {
         BtnDateNOK.style.color = 'white';
         VerifDate = "NOK";
     }
+    afficherBoutonValider();
 }
 
 //Redefinis la couleur des boutons du formulaire modal
 function resetButtonColor() {
-    BtnQualityOK.style.backgroundColor = '#e9ecef';
-    BtnQualityNOK.style.backgroundColor = '#e9ecef';
-    BtnRefOK.style.backgroundColor = '#e9ecef';
-    BtnRefNOK.style.backgroundColor = '#e9ecef';
+    $("#ResetBoutonQualite").html('');
+    $("#ResetBoutonQualite").append("<div class='col-sm-6'><button name='' id='BtnQualityOK' type='button' onclick='changeColor(\"" + "BtnQualityOK" + "\")' class='btn btn-lg btn-succes' style='font-size: 200%;' data-dismiss=''>OK</button></div><div class='col-sm-6'><button name='' id='BtnQualityNOK' type='button' onclick='changeColor(\"" + "BtnQualityNOK" + "\")' class='btn btn-lg' style='font-size: 200%;' data-dismiss=''>NOK</button></div>");
+    $("#ResetBoutonRef").html('');
+    $("#ResetBoutonRef").append("<div class='col-sm-6'><button name='' id='BtnRefOK' type='button' onclick='changeColor(\"" + "BtnRefOK" + "\")' class='btn btn-lg btn-succes' style='font-size: 200%;' data-dismiss=''>OK</button></div><div class='col-sm-6'><button name='' id='BtnRefNOK' type='button' onclick='changeColor(\"" + "BtnRefNOK" + "\")' class='btn btn-lg' style='font-size: 200%;' data-dismiss=''>NOK</button></div>");
+    //BtnQualityOK.style.backgroundColor = '#e9ecef';
+    //BtnQualityNOK.style.backgroundColor = '#e9ecef';
+    //BtnRefOK.style.backgroundColor = '#e9ecef';
+    //BtnRefNOK.style.backgroundColor = '#e9ecef';
     BtnQualityOK.style.color = 'black';
     BtnQualityNOK.style.color = 'black';
     BtnRefOK.style.color = 'black';
     BtnRefNOK.style.color = 'black';
+    VerifDate = "";
+    VerifQuality = "";
+    VerifReference = "";
     $("#ajoutDate").html('');
-
+    $("#BoutonValider").html('');
 }
 
 // Procedure qui envoie les nouvelles infos a la BDD sans la verification de la date 
@@ -298,10 +306,8 @@ function envoiSansDate() {
     } else {
         alert("Veuillez vous connecter");
     }
-    VerifDate = "";
-    VerifQuality = "";
-    VerifReference = "";
     resetButtonColor();
+    $("#choixcontrole").modal('hide');
 }
 
 // Procedure qui envoie les nouvelles infos a la BDD, si les champs ne sont pas vide avec la verification de la date 
@@ -368,10 +374,8 @@ function envoiAvecDate() {
     } else {
         alert("Veuillez vous connecter");
     }
-    VerifDate = "";
-    VerifQuality = "";
-    VerifReference = "";
     resetButtonColor();
+    $("#choixcontrole").modal('hide');
 }
 
 //procedure qui lance la fonction "envoiAvecDate" si la date est présente et "envoiSansDate" dans l'autre cas
@@ -459,21 +463,17 @@ function getUserName() {
 
 }
 
-//Fixer le tableau de controles pendant le scroll
-
-var $tabCtrl = $("#tab_ctrl"),
-    $window = $(window),
-    offset = $tabCtrl.offset(),
-    topPadding = 15;
-
-$window.scroll(function() {
-    if ($window.scrollTop() > offset.top) {
-        $tabCtrl.stop().animate({
-            marginTop: $window.scrollTop() - offset.top + topPadding
-        });
+//Affiche le bouton valider si les boutons de verifications sont selectionné
+function afficherBoutonValider() {
+    if (dateEnCours == "1") {
+        if (VerifReference != "" && VerifQuality != "" && VerifDate != "") {
+            $("#BoutonValider").html('');
+            $("#BoutonValider").append("<button type='button' onclick='procedureEnvoi()' class='btn btn-default' data-dismiss='modal' style='font-size: 200%;'>Valider</button>");
+        }
     } else {
-        $tabCtrl.stop().animate({
-            marginTop: 0
-        });
+        if (VerifReference != "" && VerifQuality != "") {
+            $("#BoutonValider").html('');
+            $("#BoutonValider").append("<button type='button' onclick='procedureEnvoi()' class='btn btn-default' data-dismiss='modal' style='font-size: 200%;'>Valider</button>");
+        }
     }
-});
+}

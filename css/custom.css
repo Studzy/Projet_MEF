@@ -183,3 +183,13 @@ nav div ul.slices li {
 #titreDernCtrl {
     position: fixed;
 }
+
+.page {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
+.site-content {
+    flex: 1;
+}
