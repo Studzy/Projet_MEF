@@ -30,11 +30,10 @@
                                     class="sr-only">(current)</span></a>
                             <!-- ****** Chemin d'accès ***** -->
                         </li>
-                        <li class="nav-item active">
+                        <!-- <li class="nav-item active">
                             <a class="nav-link" href="logs2">Historique<span
                                     class="sr-only"></span></a>
-                            <!-- ****** Chemin d'accès ***** -->
-                        </li>
+                        </li> -->
                     </ul>
                     <ul class="nav navbar-nav navbar-right slices" id="TitreConnection">
 
@@ -103,25 +102,19 @@
                         </div>
                         <div class="modal-body" id="formulaire">
 
+
                             <div id="BoutonsQuality">
                                 Nom opérateur :<br>
                                 <input type="text" value="" id="nom_operateur" required><br>
                                 <br />
-                                <p style="font-size: 50px;">Qualité de la pièce : </p>
-                                <div class="row col-sm-12 my-auto" id='ResetBoutonQualite'>
 
-                                    <div class="col-sm-6">
-                                        <button name="" id="BtnQualityOK" type="button" onclick="changeColor('BtnQualityOK')" class="btn btn-lg btn-succes" style="font-size: 200%;" data-dismiss="">OK</button>
-                                    </div>
-                                    <div class="col-sm-6">
-                                        <button name="" id="BtnQualityNOK" type="button" onclick="changeColor('BtnQualityNOK')" class="btn btn-lg" style="font-size: 200%;" data-dismiss="">NOK</button>
-                                    </div>
-
-                                </div>
                             </div>
 
-                            <br />
+
                             <div id="BoutonsRef">
+                                <span id="ImgReferenceModal"></span>
+
+                                <br />
                                 <span id='NumRef'><p>Référence : </p></span>
 
                                 <div class="row col-sm-12 my-auto" id='ResetBoutonRef'>

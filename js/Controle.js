@@ -30,7 +30,7 @@ async function lirePostes() {
 }
 
 
-//Utilise une requete php pour recuperer les refrences en BDD et avec la fonction "remplirRefs()" affiche les references sur la page
+//Utilise une requete php pour recuperer les references en BDD et avec la fonction "remplirRefs()" affiche les references sur la page
 async function lireRefs() {
     try {
         let req = await fetch('php/references.php?id=' + posteEnCours);
@@ -68,6 +68,13 @@ function choixRef(r, i) {
     $("#piece" + r).addClass("active");
     $("#NumRef").html("");
     $('#NumRef').append('<p>Référence : ' + references[i]['reference'] + '</p>');
+
+    //Vide l'emplacement de l'ancienne image
+    $("#ImgReferenceModal").html("");
+
+    //Ajoute dynamiquement l'images de la reference
+    $('#ImgReferenceModal').append("<img class='figure-img img-fluid rounded img-reference' style='display: block; margin-left: auto; margin-right: auto;'  width='60%' height='60%' src=" + references[i].adresse_photo + ">");
+
     refEnCours = r;
     dateTempo = references[i]['date_reference'];
     var result = sessionStorage.getItem('userLocal');
@@ -78,6 +85,8 @@ function choixRef(r, i) {
     if (dateTempo == 1) {
         dateEnCours = "1";
         $("#ajoutDate").html('');
+
+        //Ajoute dynamiquement les deux boutons Ok/Nok
         $("#ajoutDate").append("<p>Date limite d'utilisation : </p><div class='row col-sm-12 my-auto'><div class='col-sm-6'><button name='' id='BtnDateOK' type='button' onclick='changeColor(" + BtnOK + ")' class='btn btn-lg btn-succes' style='font-size: 200%;' data-dismiss=''>OK</button></div><div class='col-sm-6'><button name='' id='BtnDateNOK' type='button' onclick='changeColor(" + BtnNOK + ")' class='btn btn-lg' style='font-size: 200%;' data-dismiss=''>NOK</button></div></div>");
     } else {
         dateEnCours = "";
@@ -176,20 +185,20 @@ function recupererNomOperateur() {
 
 //Fonction qui change la couleur des boutons dans le formulaire modal en fonction du bouton selectionner
 function changeColor(NomBouton) {
-    if (NomBouton == "BtnQualityOK") {
-        BtnQualityOK.style.backgroundColor = 'green';
-        BtnQualityOK.style.color = 'white';
-        BtnQualityNOK.style.backgroundColor = '#e9ecef';
-        BtnQualityNOK.style.color = 'black';
-        VerifQuality = "OK";
-    }
-    if (NomBouton == "BtnQualityNOK") {
-        BtnQualityOK.style.backgroundColor = '#e9ecef';
-        BtnQualityNOK.style.backgroundColor = 'red';
-        BtnQualityNOK.style.color = 'white';
-        BtnQualityOK.style.color = 'black';
-        VerifQuality = "NOK";
-    }
+    // if (NomBouton == "BtnQualityOK") {
+    //     BtnQualityOK.style.backgroundColor = 'green';
+    //     BtnQualityOK.style.color = 'white';
+    //     BtnQualityNOK.style.backgroundColor = '#e9ecef';
+    //     BtnQualityNOK.style.color = 'black';
+    //     VerifQuality = "OK";
+    // }
+    // if (NomBouton == "BtnQualityNOK") {
+    //     BtnQualityOK.style.backgroundColor = '#e9ecef';
+    //     BtnQualityNOK.style.backgroundColor = 'red';
+    //     BtnQualityNOK.style.color = 'white';
+    //     BtnQualityOK.style.color = 'black';
+    //     VerifQuality = "NOK";
+    // }
     if (NomBouton == "BtnRefOK") {
         BtnRefOK.style.backgroundColor = 'green';
         BtnRefOK.style.color = 'white';
@@ -223,16 +232,8 @@ function changeColor(NomBouton) {
 
 //Redefinis la couleur des boutons du formulaire modal
 function resetButtonColor() {
-    $("#ResetBoutonQualite").html('');
-    $("#ResetBoutonQualite").append("<div class='col-sm-6'><button name='' id='BtnQualityOK' type='button' onclick='changeColor(\"" + "BtnQualityOK" + "\")' class='btn btn-lg btn-succes' style='font-size: 200%;' data-dismiss=''>OK</button></div><div class='col-sm-6'><button name='' id='BtnQualityNOK' type='button' onclick='changeColor(\"" + "BtnQualityNOK" + "\")' class='btn btn-lg' style='font-size: 200%;' data-dismiss=''>NOK</button></div>");
     $("#ResetBoutonRef").html('');
     $("#ResetBoutonRef").append("<div class='col-sm-6'><button name='' id='BtnRefOK' type='button' onclick='changeColor(\"" + "BtnRefOK" + "\")' class='btn btn-lg btn-succes' style='font-size: 200%;' data-dismiss=''>OK</button></div><div class='col-sm-6'><button name='' id='BtnRefNOK' type='button' onclick='changeColor(\"" + "BtnRefNOK" + "\")' class='btn btn-lg' style='font-size: 200%;' data-dismiss=''>NOK</button></div>");
-    //BtnQualityOK.style.backgroundColor = '#e9ecef';
-    //BtnQualityNOK.style.backgroundColor = '#e9ecef';
-    //BtnRefOK.style.backgroundColor = '#e9ecef';
-    //BtnRefNOK.style.backgroundColor = '#e9ecef';
-    BtnQualityOK.style.color = 'black';
-    BtnQualityNOK.style.color = 'black';
     BtnRefOK.style.color = 'black';
     BtnRefNOK.style.color = 'black';
     VerifDate = "";
@@ -246,11 +247,11 @@ function resetButtonColor() {
 function envoiSansDate() {
     NomOperateur = recupererNomOperateur();
     if (NomOperateur != "") {
-        if (VerifReference != "" && VerifQuality != "") {
-            if (VerifReference == "OK" && VerifQuality == "OK") {
+        if (VerifReference != "") {
+            if (VerifReference == "OK") {
                 let res = 1;
                 NomOperateur = recupererNomOperateur();
-
+                console.log('1');
                 $.ajax({
                     type: 'POST',
                     url: 'php/write.php',
@@ -259,14 +260,15 @@ function envoiSansDate() {
                         "poste": posteEnCours,
                         "ref": refEnCours,
                         "res": res,
-                        "resQualite": VerifQuality,
                         "resReference": VerifReference,
                         "resDate": VerifDate,
                         "userName": NomOperateur
                     },
                     success: function(data) {
                         if (data.status = "ok") {
+                            console.log('2');
                             $("#success").show().delay(2000).fadeOut();
+                            console.log('3');
                             recupererDerniersCtrl();
                         } else {
                             $("echec").show().delay(2000).fadeOut();
@@ -277,6 +279,7 @@ function envoiSansDate() {
                 recupererDerniersCtrl();
             } else {
                 let res = 0;
+                console.log('1');
                 $.ajax({
                     type: 'POST',
                     url: 'php/write.php',
@@ -285,7 +288,6 @@ function envoiSansDate() {
                         "poste": posteEnCours,
                         "ref": refEnCours,
                         "res": res,
-                        "resQualite": VerifQuality,
                         "resReference": VerifReference,
                         "resDate": VerifDate,
                         "userName": NomOperateur
@@ -314,11 +316,10 @@ function envoiSansDate() {
 function envoiAvecDate() {
     NomOperateur = recupererNomOperateur();
     if (NomOperateur != "") {
-        if (VerifReference != "" && VerifQuality != "" && VerifDate != "") {
-            if (VerifReference == "OK" && VerifQuality == "OK" && VerifDate == "OK") {
+        if (VerifReference != "" && VerifDate != "") {
+            if (VerifReference == "OK" && VerifDate == "OK") {
                 let res = 1;
                 NomOperateur = recupererNomOperateur();
-
                 $.ajax({
                     type: 'POST',
                     url: 'php/write.php',
@@ -327,7 +328,6 @@ function envoiAvecDate() {
                         "poste": posteEnCours,
                         "ref": refEnCours,
                         "res": res,
-                        "resQualite": VerifQuality,
                         "resReference": VerifReference,
                         "resDate": VerifDate,
                         "userName": NomOperateur
@@ -353,7 +353,6 @@ function envoiAvecDate() {
                         "poste": posteEnCours,
                         "ref": refEnCours,
                         "res": res,
-                        "resQualite": VerifQuality,
                         "resReference": VerifReference,
                         "resDate": VerifDate,
                         "userName": NomOperateur
@@ -466,12 +465,12 @@ function getUserName() {
 //Affiche le bouton valider si les boutons de verifications sont selectionné
 function afficherBoutonValider() {
     if (dateEnCours == "1") {
-        if (VerifReference != "" && VerifQuality != "" && VerifDate != "") {
+        if (VerifReference != "" != "" && VerifDate != "") {
             $("#BoutonValider").html('');
             $("#BoutonValider").append("<button type='button' id='BtnValider' onclick='procedureEnvoi()' class='btn btn-default' data-dismiss='modal' style='font-size: 200%;'>Valider</button>");
         }
     } else {
-        if (VerifReference != "" && VerifQuality != "") {
+        if (VerifReference != "") {
             $("#BoutonValider").html('');
             $("#BoutonValider").append("<button type='button' id='BtnValider' onclick='procedureEnvoi()' class='btn btn-default' data-dismiss='modal' style='font-size: 200%;'>Valider</button>");
         }

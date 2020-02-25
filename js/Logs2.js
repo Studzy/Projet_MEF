@@ -11,7 +11,7 @@ let identifiant = "1";
 //Procédure qui recupère les postes grâce a une requete php et qui avec la fonction "remplirTableau()" affiche les poste sur la page
 async function lirePostes() {
     try {
-        let req = await fetch('php/postes.php');
+        let req = await fetch('php/postes.php'); //requete pour recuperer les postes
         let json = await req.json();
         if (json.length) {
             postes = json;
@@ -32,7 +32,6 @@ async function procedureChoixPoste() {
 async function lireRefs() {
     try {
         let req = await fetch('php/references.php?id=' + posteEnCours);
-        //let req = (Chemin + '/references.php?id=' + posteEnCours);
         let json = await req.json();
         if (json.length) {
             references = json;
@@ -47,7 +46,6 @@ async function lireRefs() {
 async function recupererDerniersCtrl() {
     try {
         let req = await fetch('php/lastctrl.php?id=' + posteEnCours);
-        //let req = await (Chemin + '/references.php?id=' + posteEnCours);
         let json = await req.json();
         if (json.length) {
             controles = json;
@@ -68,7 +66,7 @@ function choixRef(r) {
     refEnCours = r;
 }
 
-//Fonction qui va afficher les derniers controles sur la page
+//Fonction qui va afficher les derniers controles sur la page en forme de tableau
 function remplirDerniersCtrl() {
     let tableau = $('#tab_ctrl > tbody');
     tableau.html('');
@@ -121,26 +119,26 @@ function remplirTableau() {
     $("#listepostes").html('');
     $.each(postes, function(i, obj) {
         console.log(obj.id + ' ' + obj.poste);
-        if (i < 3) {
-            $('#listepostes').append("<li onclick='choixPoste(" + i + ")' class='list-group-item'><figure class='figure'><img class='figure-img img-fluid rounded'  width='25%' height='100%' src='img/pc.svg'><figcaption class='figure-caption'>" + obj.poste + "</figcaption></figure></li>");
+        if (i < 6) {
+            $('#listepostes').append("<li onclick='choixPoste(" + i + ")' id='" + i + "' class='list-group-item'><figure class='figure'><img class='figure-img img-fluid rounded'  width='25%' height='100%' src='img/pc.svg'><figcaption class='figure-caption'>" + obj.poste + "</figcaption></figure></li>");
         }
-        if (i > 2 && i < 6) {
+        if (i > 5 && i < 12) {
             $('#content').append("<ul id='listepostes2' class='list-group list-group-horizontal justify-content-center'></ul>");
             $('#listepostes2').append("<li onclick='choixPoste(" + i + ")' class='list-group-item'><figure class='figure'><img class='figure-img img-fluid rounded'  width='25%' height='100%' src='img/pc.svg'><figcaption class='figure-caption'>" + obj.poste + "</figcaption></figure></li>");
         }
-        if (i > 5 && i < 9) {
+        if (i > 11 && i < 17) {
             $('#content').append("<ul id='listepostes3' class='list-group list-group-horizontal justify-content-center'></ul>");
             $('#listepostes3').append("<li onclick='choixPoste(" + i + ")' class='list-group-item'><figure class='figure'><img class='figure-img img-fluid rounded'  width='25%' height='100%' src='img/pc.svg'><figcaption class='figure-caption'>" + obj.poste + "</figcaption></figure></li>");
         }
-        if (i > 8 && i < 12) {
+        if (i > 16 && i < 22) {
             $('#content').append("<ul id='listepostes4' class='list-group list-group-horizontal justify-content-center'></ul>");
             $('#listepostes4').append("<li onclick='choixPoste(" + i + ")' class='list-group-item'><figure class='figure'><img class='figure-img img-fluid rounded'  width='25%' height='100%' src='img/pc.svg'><figcaption class='figure-caption'>" + obj.poste + "</figcaption></figure></li>");
         }
-        if (i > 11 && i < 15) {
+        if (i > 21 && i < 27) {
             $('#content').append("<ul id='listepostes5' class='list-group list-group-horizontal justify-content-center'></ul>");
             $('#listepostes5').append("<li onclick='choixPoste(" + i + ")' class='list-group-item'><figure class='figure'><img class='figure-img img-fluid rounded'  width='25%' height='100%' src='img/pc.svg'><figcaption class='figure-caption'>" + obj.poste + "</figcaption></figure></li>");
         }
-        if (i > 14) {
+        if (i > 26) {
             $('#content').append("<ul id='listepostes6' class='list-group list-group-horizontal justify-content-center'></ul>");
             $('#listepostes6').append("<li onclick='choixPoste(" + i + ")' class='list-group-item'><figure class='figure'><img class='figure-img img-fluid rounded'  width='25%' height='100%' src='img/pc.svg'><figcaption class='figure-caption'>" + obj.poste + "</figcaption></figure></li>");
         }

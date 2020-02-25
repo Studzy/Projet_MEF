@@ -21,13 +21,12 @@ require('bdd.php');
         //$req = $bdd->query("call ecrire_controle('$idPoste', '$idRef', '$dateHeure', '$idUser', '$res');");
         //$req = $bdd->exec("INSERT INTO 'controles' VALUES ('$dateHeure', '$idPoste', '$idRef', '$idUser', '$res');");
 
-        $req = $bdd->prepare('INSERT INTO controles(timestamp, poste_id, ref_id, resultat, resultat_qualite, resultat_reference, resultat_date, user_name) VALUES(:dateHeure, :idPoste, :idRef, :res, :resQualite, :resReference, :resDate, :userName)');
+        $req = $bdd->prepare('INSERT INTO controles(timestamp, poste_id, ref_id, resultat, resultat_reference, resultat_date, user_name) VALUES(:dateHeure, :idPoste, :idRef, :res, :resReference, :resDate, :userName)');
         $req->execute(array(
 	        'dateHeure' => $dateHeure,
 	        'idPoste' => $idPoste,
 	        'idRef' => $idRef,
             'res' => $res,
-            'resQualite' => $resQualite,
             'resReference' => $resReference,
             'resDate' => $resDate,
             'userName' => $userName,

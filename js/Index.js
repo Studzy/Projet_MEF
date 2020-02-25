@@ -7,15 +7,15 @@ let posteAprès = "";
 let referenceDeplacer = "";
 let uneReference = [{}];
 
-//Recupère les postes dans la BDD et rempli la liste déroulante
+//Procédure qui recupère les postes grâce a une requete php et qui avec la fonction "remplirTableau()" affiche les poste sur la page
 async function lirePostes() {
     try {
-        let req = await fetch('php/postes.php');
+        let req = await fetch('php/postes.php'); //lance la requete php pour recuperer les postes
         let json = await req.json();
         if (json.length) {
             postes = json;
-            ToutADefaut();
-            remplirListeDeroulantePoste();
+            ToutADefaut(); //lance la procedure qui reinitialise les postes
+            remplirListeDeroulantePoste(); //rempli la liste déroulante avec les postes
         }
 
     } catch (err) {
@@ -29,10 +29,10 @@ function ToutADefaut() {
     $('#poste_select').append("<option value=''>-- Choisir un poste --</option>");
 }
 
-//Rempli la liste déroulante avec l'objet postes
+//rempli la liste déroulante avec les postes
 function remplirListeDeroulantePoste() {
     $.each(postes, function(i, obj) {
-        console.log(obj.id + ' ' + obj.poste);
+        //console.log(obj.id + ' ' + obj.poste);
         $('#poste_select').append("<option value='" + obj.id + "'>" + obj.poste + "</option>");
     });
 }

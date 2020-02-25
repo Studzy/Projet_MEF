@@ -7,7 +7,7 @@ require('bdd.php');
 	$bdd = connectBase();
 	$idposte = $_GET['id'];
 
-	$req = $bdd->query("select `id`, `reference`, `adresse_photo`, `date_reference`  from `references` where `poste_id` = '$idposte'");
+	$req = $bdd->query("select `id`, `reference`, `adresse_photo`, `date_reference`  from `references` where `poste_id` = '$idposte' ORDER BY ordre_priorite");
 	/*$req = $bdd->query("select `references`.`id`, `references`.`reference`, `references`.`adresse_photo`  from `controles`
 								INNER JOIN `references` 
 								ON `controles`.`ref_id` = `references`.`id` 
