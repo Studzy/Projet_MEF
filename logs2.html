@@ -45,31 +45,17 @@
         <h3 class="text-center display-6" id="titre">MEF Ferrage historique conformité</h3><br />
 
         <div id="content" class="jumbotron">
-            <h3 class="text-left display-5">Choissisez le poste</h3><br />
+            <!-- <h3 class="text-left display-5">Choissisez le poste</h3> -->
+            <p><button onclick="getPosteInactif()" class="btn btn-default" style="border: solid 1px">Verifier les postes</button></p>
+
             <ul id="listepostes" class="list-group list-group-horizontal justify-content-center">
             </ul>
         </div>
-        <div class="modal fade" id="choixuser" role="dialog">
-            <div class="modal-dialog" style="max-width: 90%;">
+        <div class="modal fade" id="actionQualite" role="dialog">
+            <div class="modal-dialog">
                 <div class="modal-content">
                     <div class="modal-header">
-                        <h2 class="modal-title">Nom d'utilisateur</h2>
-                    </div>
-                    <div class="modal-body" id="connection">
-                        <input type="text" value='' id="nom_user" style="font-size: 100%;">
-                    </div>
-                    <div class="modal-footer">
-                        <button type="button" id="BtnChangeUser" onclick="resetLocalUser()" class="btn btn-default" data-dismiss="modal" style="font-size: 100%;">Changer d'utilisateur</button>
-                        <button type="button" id="BtnCancel" onclick="" class="btn btn-default" data-dismiss="modal" style="font-size: 100%;">Annuler</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-        <div class="modal fade" id="choixposte" role="dialog">
-            <div class="modal-dialog" style="max-width: 90%;">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h2 class="modal-title">Choix du poste</h2>
+                        <h2 class="modal-title">Action effectué</h2>
                     </div>
                     <div class="modal-body" id="connection">
                         <fieldset>

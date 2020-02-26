@@ -4,9 +4,11 @@ var Chemin = "http://localhost/Projet_MEF";
 let postes = [{}];
 let references = [{}];
 let controles = [{}];
+let postesInactif = [{}];
 let posteEnCours = "";
 let refEnCours = "";
 let identifiant = "1";
+let dateCtrl = new Date();
 
 //Procédure qui recupère les postes grâce a une requete php et qui avec la fonction "remplirTableau()" affiche les poste sur la page
 async function lirePostes() {
@@ -42,7 +44,36 @@ async function lireRefs() {
     }
 }
 
-//Recupère grâce a une requete php les 15 derniers controles effectuer et avec la fonction "remplirDerniersCtrl()" les affiches sur la page
+//Requete php pour recuperer les postes qui n'ont pas emis de controle depuis plus de 3h
+async function getPosteInactif() {
+    try {
+        let req = await fetch('php/verifPostes.php');
+        console.log('1');
+        let json = await req.json();
+        console.log('2');
+        if (json.length) {
+            console.log('3');
+            postesInactif = json;
+            console.log('4');
+            afficherPosteInactif();
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
+
+function afficherPosteInactif() {
+    console.log('5');
+    $.each(postesInactif, function(i, obj) {
+        // $("#" + obj.poste + "").html('');
+        console.log(obj.poste);
+        let nomObj = document.getElementById(obj.poste);
+        nomObj.setAttribute('style', 'background-color:red;');
+
+    });
+}
+
+//Recupère grâce a une requete php les 10 derniers controles effectuer et avec la fonction "remplirDerniersCtrl()" les affiches sur la page
 async function recupererDerniersCtrl() {
     try {
         let req = await fetch('php/lastctrl.php?id=' + posteEnCours);
@@ -81,7 +112,7 @@ function remplirDerniersCtrl() {
                         tableau.find('tr').last().append('<td>' + controles[prop] + '</td>');
                     }
                 } else {
-                    tableau.find('tr').last().append('<td style="background-color:red;color:white;font-weight:bold;">NOK</td>');
+                    tableau.find('tr').last().append('<td style="background-color:red;"><a href="" target="" style="color:white;font-weight:bold;">NOK</a ></td > ');
                 }
             }
 
@@ -120,7 +151,7 @@ function remplirTableau() {
     $.each(postes, function(i, obj) {
         console.log(obj.id + ' ' + obj.poste);
         if (i < 6) {
-            $('#listepostes').append("<li onclick='choixPoste(" + i + ")' id='" + i + "' class='list-group-item'><figure class='figure'><img class='figure-img img-fluid rounded'  width='25%' height='100%' src='img/pc.svg'><figcaption class='figure-caption'>" + obj.poste + "</figcaption></figure></li>");
+            $('#listepostes').append("<li onclick='choixPoste(" + i + ")' id='" + obj.poste + "' class='list-group-item'><figure class='figure'><img class='figure-img img-fluid rounded'  width='25%' height='100%' src='img/pc.svg'><figcaption class='figure-caption'>" + obj.poste + "</figcaption></figure></li>");
         }
         if (i > 5 && i < 12) {
             $('#content').append("<ul id='listepostes2' class='list-group list-group-horizontal justify-content-center'></ul>");

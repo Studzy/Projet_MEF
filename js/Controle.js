@@ -225,6 +225,7 @@ function changeColor(NomBouton) {
         BtnDateNOK.style.backgroundColor = 'red';
         BtnDateOK.style.color = 'black';
         BtnDateNOK.style.color = 'white';
+
         VerifDate = "NOK";
     }
     afficherBoutonValider();
@@ -381,8 +382,12 @@ function envoiAvecDate() {
 function procedureEnvoi() {
     if (dateEnCours != "") {
         envoiAvecDate();
+        //recupererDerniersCtrl();
+        document.location.reload(true); // recharge la page
     } else {
         envoiSansDate();
+        //recupererDerniersCtrl();
+        document.location.reload(true); // recharge la page
     }
 }
 
