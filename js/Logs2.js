@@ -48,14 +48,16 @@ async function lireRefs() {
 async function getPosteInactif() {
     try {
         let req = await fetch('php/verifPostes.php');
-        console.log('1');
         let json = await req.json();
-        console.log('2');
         if (json.length) {
-            console.log('3');
             postesInactif = json;
-            console.log('4');
             afficherPosteInactif();
+        } else {
+            let items = document.getElementsByClassName("list-group-item");
+
+            for (i = 0; i < items.length; i++) {
+                items[i].setAttribute('style', 'background-color:white;');
+            }
         }
     } catch (err) {
         console.log(err);
@@ -63,10 +65,13 @@ async function getPosteInactif() {
 }
 
 function afficherPosteInactif() {
-    console.log('5');
+    let items = document.getElementsByClassName("list-group-item");
+
+    for (i = 0; i < items.length; i++) {
+        items[i].setAttribute('style', 'background-color:white;');
+    }
     $.each(postesInactif, function(i, obj) {
         // $("#" + obj.poste + "").html('');
-        console.log(obj.poste);
         let nomObj = document.getElementById(obj.poste);
         nomObj.setAttribute('style', 'background-color:red;');
 
@@ -155,23 +160,23 @@ function remplirTableau() {
         }
         if (i > 5 && i < 12) {
             $('#content').append("<ul id='listepostes2' class='list-group list-group-horizontal justify-content-center'></ul>");
-            $('#listepostes2').append("<li onclick='choixPoste(" + i + ")' class='list-group-item'><figure class='figure'><img class='figure-img img-fluid rounded'  width='25%' height='100%' src='img/pc.svg'><figcaption class='figure-caption'>" + obj.poste + "</figcaption></figure></li>");
+            $('#listepostes2').append("<li onclick='choixPoste(" + i + ")' id='" + obj.poste + "' class='list-group-item'><figure class='figure'><img class='figure-img img-fluid rounded'  width='25%' height='100%' src='img/pc.svg'><figcaption class='figure-caption'>" + obj.poste + "</figcaption></figure></li>");
         }
         if (i > 11 && i < 17) {
             $('#content').append("<ul id='listepostes3' class='list-group list-group-horizontal justify-content-center'></ul>");
-            $('#listepostes3').append("<li onclick='choixPoste(" + i + ")' class='list-group-item'><figure class='figure'><img class='figure-img img-fluid rounded'  width='25%' height='100%' src='img/pc.svg'><figcaption class='figure-caption'>" + obj.poste + "</figcaption></figure></li>");
+            $('#listepostes3').append("<li onclick='choixPoste(" + i + ")' id='" + obj.poste + "' class='list-group-item'><figure class='figure'><img class='figure-img img-fluid rounded'  width='25%' height='100%' src='img/pc.svg'><figcaption class='figure-caption'>" + obj.poste + "</figcaption></figure></li>");
         }
         if (i > 16 && i < 22) {
             $('#content').append("<ul id='listepostes4' class='list-group list-group-horizontal justify-content-center'></ul>");
-            $('#listepostes4').append("<li onclick='choixPoste(" + i + ")' class='list-group-item'><figure class='figure'><img class='figure-img img-fluid rounded'  width='25%' height='100%' src='img/pc.svg'><figcaption class='figure-caption'>" + obj.poste + "</figcaption></figure></li>");
+            $('#listepostes4').append("<li onclick='choixPoste(" + i + ")' id='" + obj.poste + "' class='list-group-item'><figure class='figure'><img class='figure-img img-fluid rounded'  width='25%' height='100%' src='img/pc.svg'><figcaption class='figure-caption'>" + obj.poste + "</figcaption></figure></li>");
         }
         if (i > 21 && i < 27) {
             $('#content').append("<ul id='listepostes5' class='list-group list-group-horizontal justify-content-center'></ul>");
-            $('#listepostes5').append("<li onclick='choixPoste(" + i + ")' class='list-group-item'><figure class='figure'><img class='figure-img img-fluid rounded'  width='25%' height='100%' src='img/pc.svg'><figcaption class='figure-caption'>" + obj.poste + "</figcaption></figure></li>");
+            $('#listepostes5').append("<li onclick='choixPoste(" + i + ")' id='" + obj.poste + "' class='list-group-item'><figure class='figure'><img class='figure-img img-fluid rounded'  width='25%' height='100%' src='img/pc.svg'><figcaption class='figure-caption'>" + obj.poste + "</figcaption></figure></li>");
         }
         if (i > 26) {
             $('#content').append("<ul id='listepostes6' class='list-group list-group-horizontal justify-content-center'></ul>");
-            $('#listepostes6').append("<li onclick='choixPoste(" + i + ")' class='list-group-item'><figure class='figure'><img class='figure-img img-fluid rounded'  width='25%' height='100%' src='img/pc.svg'><figcaption class='figure-caption'>" + obj.poste + "</figcaption></figure></li>");
+            $('#listepostes6').append("<li onclick='choixPoste(" + i + ")' id='" + obj.poste + "' class='list-group-item'><figure class='figure'><img class='figure-img img-fluid rounded'  width='25%' height='100%' src='img/pc.svg'><figcaption class='figure-caption'>" + obj.poste + "</figcaption></figure></li>");
         }
 
     });

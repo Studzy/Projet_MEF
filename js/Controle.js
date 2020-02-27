@@ -343,7 +343,7 @@ function envoiAvecDate() {
                         }
                     }
                 });
-                recupererDerniersCtrl();
+                //recupererDerniersCtrl();
             } else {
                 let res = 0;
                 $.ajax({
@@ -368,7 +368,7 @@ function envoiAvecDate() {
                         }
                     }
                 });
-                recupererDerniersCtrl();
+                //recupererDerniersCtrl();
             }
         }
     } else {
@@ -383,12 +383,13 @@ function procedureEnvoi() {
     if (dateEnCours != "") {
         envoiAvecDate();
         //recupererDerniersCtrl();
-        document.location.reload(true); // recharge la page
+        //document.location.reload(true); // recharge la page
     } else {
         envoiSansDate();
         //recupererDerniersCtrl();
-        document.location.reload(true); // recharge la page
+        //document.location.reload(true); // recharge la page
     }
+    //setTimeout(recupererDerniersCtrl, 2000);
 }
 
 //Recuperer le nom utilisateur
