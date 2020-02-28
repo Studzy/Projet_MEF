@@ -389,7 +389,7 @@ function procedureEnvoi() {
         //recupererDerniersCtrl();
         //document.location.reload(true); // recharge la page
     }
-    //setTimeout(recupererDerniersCtrl, 2000);
+    setTimeout(recupererDerniersCtrl, 2000);
 }
 
 //Recuperer le nom utilisateur

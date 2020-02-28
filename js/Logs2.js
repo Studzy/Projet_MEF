@@ -49,10 +49,12 @@ async function getPosteInactif() {
     try {
         let req = await fetch('php/verifPostes.php');
         let json = await req.json();
-        if (json.length) {
+        if (json) {
+            console.log('ça marche !');
             postesInactif = json;
             afficherPosteInactif();
         } else {
+            console.log("ça bug !");
             let items = document.getElementsByClassName("list-group-item");
 
             for (i = 0; i < items.length; i++) {
