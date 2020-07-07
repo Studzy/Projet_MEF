@@ -44,6 +44,10 @@ async function lireRefs() {
     }
 }
 
+function refreshLog() {
+    location.reload(true);
+}
+
 //Requete php pour recuperer les postes qui n'ont pas emis de controle depuis plus de 3h
 async function getPosteInactif() {
     try {
