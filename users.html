@@ -5,14 +5,14 @@
     <meta charset="UTF-8">
     <script src="js/Jquery/jquery-3.4.1.min.js"></script>
     <script src="js/bootstrap/bootstrap.min.js"></script>
-    <script src="js/modif.js"></script>
+    <script src="js/users.js"></script>
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="css/custom.css">
     <script>
-        window.onload = lirePostes;
+        //window.onload = lirePostes;
         //lirePostes();
     </script>
-    <title>Modification</title>
+    <title>Utilisateurs</title>
 
 </head>
 
@@ -40,7 +40,7 @@
         </nav>
     </header>
     <main>
-        <h2 class="text-center display-6">Modification emplacement pièce</h2><br />
+        <h2 class="text-center display-6">Utilisateurs</h2><br />
         <div id="success" class="alert alert-success" role="alert" style="display: none;">
             <h4 class="alert-heading">Succès</h4>
             <p class="mb-0">Le contrôle a bien été enregistré.</p>
@@ -54,28 +54,31 @@
 
 
                 <fieldset>
-                    <h4>La pièce à déplacer :</h4>
-                    <label for="choixPoste">Poste :</label>
+                    <h4>Utilisateur à ajouter :</h4>
+                    <label for="choixPoste">Utilisateur :</label>
 
-                    <select name="poste" id="poste_select" onchange='lireRefs()' required>
-                        <option value=''>--Choisir un poste--</option>
+                    <input type="text" value="" id="userrpi" width="" required>
+                    
+                    <button type="submit" onclick="" class="btn btn-default" style="border: solid 1px">Ajouter</button>
+
+                </fieldset>
+                
+
+            </div>
+        </form>
+
+        <form>
+            <div class="jumbotron">
+
+                <fieldset>
+                    <h4>Utilisateur à supprimer :</h4>
+                    <label for="choixPoste">Utilisateur :</label>
+
+                    <select name="" id="" onchange='' required>
+                        <option value=''>--Choisir un utilisateur--</option>
                     </select>
-                    <label for="choixRef">Référence :</label>
-
-                    <select name="reference" id="ref_select" onchange="afficherUneReference()" required>
-                        <option value=''>--Choisir une référence--</option>
-                    </select>
-                    <ul class="" id="affichageReference">
-
-                    </ul>
-                    <h4>Emplacement de destination :</h4>
-                    <label for="choixPoste">Poste :</label>
-
-                    <select name="posteDest" id="poste_select_dest" required>
-                        <option value=''>--Choisir un poste--</option>
-                    </select>
-                    <br /><br />
-                    <button type="submit" onclick="modifEmplacementRef()" class="btn btn-default" style="border: solid 1px">Effectuer les modifications</button>
+                    
+                    <button type="submit" onclick="" class="btn btn-default" style="border: solid 1px">Supprimer</button>
 
                 </fieldset>
 
