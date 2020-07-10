@@ -6,15 +6,15 @@ require('bdd.php');
     $response = array();
 
 
-    $rpiUser = $_POST['userRpi'];
+    $userId = $_POST['userId'];
 
     try{
         //$req = $bdd->query("call ecrire_controle('$idPoste', '$idRef', '$dateHeure', '$idUser', '$res');");
         //$req = $bdd->exec("INSERT INTO 'controles' VALUES ('$dateHeure', '$idPoste', '$idRef', '$idUser', '$res');");
 
-        $req = $bdd->prepare('INSERT INTO users(rpi) VALUES(:rpiUser)');
+        $req = $bdd->prepare('DELETE FROM users WHERE `Id` = :userId');
         $req->execute(array(
-	        'rpiUser' => $rpiUser,
+	        'userId' => $userId,
 	        ));
         
         $response['status'] = "ok";

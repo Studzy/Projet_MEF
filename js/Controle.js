@@ -185,20 +185,6 @@ function recupererNomOperateur() {
 
 //Fonction qui change la couleur des boutons dans le formulaire modal en fonction du bouton selectionner
 function changeColor(NomBouton) {
-    // if (NomBouton == "BtnQualityOK") {
-    //     BtnQualityOK.style.backgroundColor = 'green';
-    //     BtnQualityOK.style.color = 'white';
-    //     BtnQualityNOK.style.backgroundColor = '#e9ecef';
-    //     BtnQualityNOK.style.color = 'black';
-    //     VerifQuality = "OK";
-    // }
-    // if (NomBouton == "BtnQualityNOK") {
-    //     BtnQualityOK.style.backgroundColor = '#e9ecef';
-    //     BtnQualityNOK.style.backgroundColor = 'red';
-    //     BtnQualityNOK.style.color = 'white';
-    //     BtnQualityOK.style.color = 'black';
-    //     VerifQuality = "NOK";
-    // }
     if (NomBouton == "BtnRefOK") {
         BtnRefOK.style.backgroundColor = 'green';
         BtnRefOK.style.color = 'white';

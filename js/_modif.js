@@ -7,7 +7,7 @@ let posteAprès = "";
 let referenceDeplacer = "";
 let uneReference = [{}];
 
-//Procédure qui recupère les postes grâce a une requete php et qui avec la fonction "remplirListeDeroulantePoste()" affiche les poste sur la page
+//Procédure qui recupère les postes grâce a une requete php et qui avec la fonction "remplirTableau()" affiche les poste sur la page
 async function lirePostes() {
     try {
         let req = await fetch('php/postes.php');

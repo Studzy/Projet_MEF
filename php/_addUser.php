@@ -6,7 +6,7 @@ require('bdd.php');
     $response = array();
 
 
-    $rpiUser = $_POST['userRpi'];
+    $rpiUser = $_POST['userrpi'];
 
     try{
         //$req = $bdd->query("call ecrire_controle('$idPoste', '$idRef', '$dateHeure', '$idUser', '$res');");

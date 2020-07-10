@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/bootstrap/bootstrap.min.css">
     <link rel="stylesheet" href="css/custom.css">
     <script>
-        window.onload = lireUsers;
+        //window.onload = lirePostes;
         //lirePostes();
     </script>
     <title>Utilisateurs</title>
@@ -49,20 +49,17 @@
             <h4 class="alert-heading">Echec</h4>
             <p class="mb-0">Erreur lors de l'écriture.</p>
         </div>
-
-        <!-- |||||||||||||||| AJOUT UTILISATEUR ||||||||||||||||||||||||||  -->
-
         <form>
             <div class="jumbotron">
 
 
                 <fieldset>
                     <h4>Utilisateur à ajouter :</h4>
-                    <label for="choixUsers">Utilisateur :</label>
+                    <label for="choixPoste">Utilisateur :</label>
 
-                    <input type="text" value="" id="userRpi" width="" required>
+                    <input type="text" value="" id="userrpi" width="" required>
                     
-                    <button type="submit" onclick="addUser()" class="btn btn-default" style="border: solid 1px">Ajouter</button>
+                    <button type="submit" onclick="" class="btn btn-default" style="border: solid 1px">Ajouter</button>
 
                 </fieldset>
                 
@@ -70,30 +67,23 @@
             </div>
         </form>
 
-        <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||  -->
-
-
-        <!-- |||||||||||||||| SUPPRESION UTILISATEUR ||||||||||||||||||||||||||  -->
-
         <form>
             <div class="jumbotron">
 
                 <fieldset>
                     <h4>Utilisateur à supprimer :</h4>
-                    <label for="choixUsers">Utilisateur :</label>
+                    <label for="choixPoste">Utilisateur :</label>
 
-                    <select name="users" id="users_select" onchange='' required>
+                    <select name="" id="" onchange='' required>
                         <option value=''>--Choisir un utilisateur--</option>
                     </select>
                     
-                    <button type="submit" onclick="deleteUser()" class="btn btn-default" style="border: solid 1px">Supprimer</button>
+                    <button type="submit" onclick="" class="btn btn-default" style="border: solid 1px">Supprimer</button>
 
                 </fieldset>
 
             </div>
         </form>
-
-        <!-- ||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||||  -->
 
         <div class="modal fade" id="choixcontrole" role="dialog">
             <div class="modal-dialog">

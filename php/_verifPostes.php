@@ -9,7 +9,7 @@ date_default_timezone_set('Europe/Paris');
  	$bdd = connectBase();
     //$idposte = $_GET['id'];
     $dateHeure = date("Y-m-d").' '.date('H:i:s');
-    $dateHeure = date("Y-m-d").' '.date('H:i:s', strtotime($dateHeure." - 3 hour")); //Date actuel avec -3 heure
+    $dateHeure = date("Y-m-d").' '.date('H:i:s', strtotime($dateHeure." - 1 hour")); //Date actuel avec -3 heure
 
      //$req = $bdd->query("select `id`, `reference`, `adresse_photo`, `date_reference`  from `references` where `poste_id` = '$idposte' ORDER BY ordre_priorite");
      $req = $bdd->query("SELECT MAX(timestamp) AS Date, postes.poste FROM `controles` INNER JOIN postes ON controles.poste_id = postes.id GROUP BY poste_id;");
