@@ -8,6 +8,8 @@ let postesInactif = [{}];
 let posteEnCours = "";
 let refEnCours = "";
 let identifiant = "1";
+let LePoste = "";
+var dateControl = "";
 let dateCtrl = new Date();
 
 //Procédure qui recupère les postes grâce a une requete php et qui avec la fonction "remplirTableau()" affiche les poste sur la page
@@ -98,6 +100,23 @@ async function recupererDerniersCtrl() {
     }
 }
 
+//Recupère grâce a une requete php les 10 derniers controles effectuer et avec la fonction "remplirDerniersCtrl()" les affiches sur la page
+async function recupererDerniersCtrlByDate() {
+     
+    let pds_date = dateControl.value;
+    console.log("date = " + pds_date);
+    try {
+        let req = await fetch('php/lastCtrlByDate.php?id=' + posteEnCours + '&pds_date=' + pds_date);
+        let json = await req.json();
+        if (json.length) {
+            controles = json;
+            remplirDerniersCtrl();
+        }
+    } catch (err) {
+        console.log(err);
+    }
+}
+
 //Procédure qui permet d'afficher les references sur la page
 function choixRef(r) {
     $.each(references, function(i, obj) {
@@ -131,6 +150,7 @@ function remplirDerniersCtrl() {
     });
 }
 
+
 //Procédure qui va afficher dynamiquement les references sur la page à la suite de l'ID "listerefs"
 
 function remplirRefs() {
@@ -144,17 +164,34 @@ function remplirRefs() {
 
 //Procédure qui après la selection du poste va afficher les references
 function choixPoste(p) {
-    posteEnCours = postes[p].id
+    posteEnCours = postes[p].id;
+    LePoste = postes[p].poste;
+    dateControl = document.querySelector('input[type="date"]');
     $("#content").html('');
-    $("#poste").html(postes[p].poste);
+    $("#poste").html(LePoste);
     $("#titre").html("");
     $("#content").append("<div class='jumbotron' id='titres_main'></div>");
     $("#titres_main").append("<h1 class='text-center display-4'>MEF Ferrage historique conformité</h1><br />");
-    $("#titres_main").append("<div class='jumbotron'><div class='row col-md-10 mx-auto p-4'><table id='tab_ctrl' class='table table-responsive-md table-striped table-bordered table-active text-center'></table></div></div>");
-    $("#tab_ctrl").append("<thead><tr><th>Date/heure</th><th>Identifiant</th><th>Poste</th><th>Référence</th></th><th>Etat</th></tr></thead><tbody></tbody>");
+    $("#titres_main").append("<div class='jumbotron'><div><div><form action='' style='text-align: center;'><input type='date' id='date_pds' required><button type='submit' onclick='choixDate()' class='btn btn-default' style='border: solid 1px'>Rechercher</button></form></div></div><div class='row col-md-10 mx-auto p-4'><table id='tab_ctrl' class='table table-responsive-md table-striped table-bordered table-active text-center'></table></div></div>");
+    $("#tab_ctrl").append('<thead><tr><th>Date/heure</th><th>Identifiant</th><th>Poste</th><th>Référence</th></th><th>Etat</th></tr></thead><tbody></tbody>');
     //lireRefs();
     recupererDerniersCtrl();
 }
+
+//Procédure qui après la selection de la date va afficher les references
+function choixDate() {
+    dateControl = document.querySelector('input[type="date"]');
+    $("#content").html('');
+    $("#poste").html(LePoste);
+    $("#titre").html("");
+    $("#content").append("<div class='jumbotron' id='titres_main'></div>");
+    $("#titres_main").append("<h1 class='text-center display-4'>MEF Ferrage historique conformité</h1><br />");
+    $("#titres_main").append("<div class='jumbotron'><div><div><form action='' style='text-align: center;'><input type='date' id='date_pds' required><button type='submit' onclick='choixDate()' class='btn btn-default' style='border: solid 1px'>Rechercher</button></form></div></div><div class='row col-md-10 mx-auto p-4'><table id='tab_ctrl' class='table table-responsive-md table-striped table-bordered table-active text-center'></table></div></div>");
+    $("#tab_ctrl").append('<thead><tr><th>Date/heure</th><th>Identifiant</th><th>Poste</th><th>Référence</th></th><th>Etat</th></tr></thead><tbody></tbody>');
+    //lireRefs();
+    recupererDerniersCtrlByDate();
+}
+
 
 //Fonction qui affiche les differents postes sous forme de tableau 
 function remplirTableau() {
